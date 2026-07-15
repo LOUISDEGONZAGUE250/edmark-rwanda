@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shop Edmark Rwanda premium nutritional products. Weight management, wellness, beauty, and nutrition drinks. Fast delivery across Rwanda." />
+  <meta name="keywords" content="Edmark products, wellness products, nutrition drinks, weight management, skincare, Rwanda" />
+  <title>Products | Edmark Rwanda - Premium Wellness & Nutrition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="Edmark Rwanda Logo" class="logo">
+      </a>
+      <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="business-opportunity.html">Business</a>
+        <a href="distributor.html">Become Distributor</a>
+        <a href="about.html">About</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Our Products</p>
+        <h1>You Deserve Better Health</h1>
+        <p style="font-size: 1.1rem; margin-top: 1rem;">Your body works hard for you every day. Stress, poor nutrition, and modern lifestyles can gradually affect your energy, digestion, weight, and overall well-being. Edmark offers high-quality nutritional products designed to support a healthier lifestyle.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="catalog-toolbar">
+          <input id="productSearch" type="search" placeholder="Search by name or category" />
+          <select id="productFilter">
+            <option value="all">All Categories</option>
+            <option value="Healthy Slimming Programme">Healthy Slimming</option>
+            <option value="Beauty Pack">Beauty Pack</option>
+            <option value="Lifestyle Beverages">Lifestyle Beverages</option>
+            <option value="Healthcare & Wellness">Healthcare & Wellness</option>
+          </select>
+        </div>
+        <div class="filter-buttons" id="filterButtons"></div>
+      </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="section alt-bg">
+      <div class="container">
+        <div class="card-grid" id="productsGrid">
+          <div class="loading-message">Loading products...</div>
+        </div>
+        <div class="pagination-controls" id="paginationControls"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card cart-panel">
+          <h2>Your Cart</h2>
+          <div id="cartState">
+            <p id="cart-empty">Your cart is empty.</p>
+            <ul id="cart-items"></ul>
+            <div class="cart-summary">
+              <strong>Total:</strong> <span id="cart-total">0</span> RWF
+            </div>
+          </div>
+
+          <div class="checkout-form">
+            <label for="customer-name">Name</label>
+            <input id="customer-name" type="text" placeholder="Your name" />
+            <label for="customer-email">Email</label>
+            <input id="customer-email" type="email" placeholder="you@example.com" />
+            <button id="checkout-button" class="btn btn-primary">Place Order</button>
+            <p id="cart-message" class="cart-message"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Order via WhatsApp -->
+    <section class="section">
+      <div class="container" style="text-align: center;">
+        <h2 style="margin-bottom: 1rem;">Order Conveniently</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: #666;">Can't decide? Chat with our team on WhatsApp for personalized recommendations</p>
+        <a href="https://wa.me/250788991551" class="btn btn-primary" target="_blank">Order via WhatsApp 💬</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="footer-brand" style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Edmark Rwanda</p>
+        <p>Your Trusted Wellness & Business Success Partner</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="business-opportunity.html">Business</a></li>
+          <li><a href="distributor.html">Distributor</a></li>
+          <li><a href="testimonials.html">Testimonials</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact Info</h3>
+        <ul>
+          <li>📍 Kigali, Rwanda</li>
+          <li>📱 +250 788 991 551</li>
+          <li>✉️ info@edmarkrwanda.com</li>
+        </ul>
+        <div style="margin-top: 1rem;">
+          <h3>Follow Us</h3>
+          <div class="social-icons" style="margin-top: 0.5rem; display:flex; gap:0.5rem; align-items:center;">
+            <a href="https://facebook.com" target="_blank"><img src="images/social/facebook.svg" alt="Facebook" width="28" height="28"></a>
+            <a href="https://instagram.com" target="_blank"><img src="images/social/instagram.svg" alt="Instagram" width="28" height="28"></a>
+            <a href="https://twitter.com" target="_blank"><img src="images/social/twitter.svg" alt="Twitter" width="28" height="28"></a>
+            <a href="https://youtube.com" target="_blank"><img src="images/social/youtube.svg" alt="YouTube" width="28" height="28"></a>
+            <a href="https://tiktok.com" target="_blank"><img src="images/social/tiktok.svg" alt="TikTok" width="28" height="28"></a>
+            <a href="https://linkedin.com" target="_blank"><img src="images/social/linkedin.svg" alt="LinkedIn" width="28" height="28"></a>
+            <a href="https://wa.me/250788991551" target="_blank"><img src="images/social/whatsapp.svg" alt="WhatsApp" width="28" height="28"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 2rem; text-align: center;">
+      <p>&copy; 2024 Edmark Rwanda. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/250788991551" class="whatsapp-btn" title="Chat with us on WhatsApp" target="_blank">
+    💬
+  </a>
+
+  <script src="js/script.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

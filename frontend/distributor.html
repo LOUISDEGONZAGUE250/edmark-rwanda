@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Become an Edmark Rwanda Distributor. Choose your starter package and start earning. Official membership with training and support." />
+  <meta name="keywords" content="Edmark distributor, membership, starter kit, become distributor, Rwanda" />
+  <title>Become a Distributor | Edmark Rwanda - Start Your Business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="Edmark Rwanda Logo" class="logo">
+      </a>
+      <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="business-opportunity.html">Business</a>
+        <a href="distributor.html" class="active">Become Distributor</a>
+        <a href="about.html">About</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Distributor Packages</p>
+        <h1>Start Your Journey Today</h1>
+        <p style="font-size: 1.1rem; margin-top: 1rem;">Choose your membership package and begin building your Edmark business in Rwanda</p>
+      </div>
+    </section>
+
+    <!-- Package Comparison -->
+    <section class="section alt-bg">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Choose Your Package</p>
+          <h2>Membership Options</h2>
+        </div>
+
+        <div class="package-grid">
+          <!-- Regular Starter Kit -->
+          <div class="package-card">
+            <div class="package-name">Regular Starter Kit</div>
+            <div class="package-price">150,200 RWF</div>
+
+            <div style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 0; margin: 1.5rem 0;">
+              <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--primary-blue);">What's Included:</h4>
+              <ul class="package-includes">
+                <li>Sales Kit Bag</li>
+                <li>3 Product Sachets</li>
+                <li>Splina Liquid Chlorophyll</li>
+                <li>Red Coffee</li>
+                <li>Ginseng Coffee</li>
+                <li>Edmark Tumbler</li>
+              </ul>
+            </div>
+
+            <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--primary-blue);">You'll Get:</h4>
+            <ul class="package-includes" style="margin-bottom: 0;">
+              <li>Official Edmark Membership</li>
+              <li>Business Training</li>
+              <li>Personal Mentorship</li>
+              <li>Marketing Support</li>
+            </ul>
+
+            <button class="join-btn primary" onclick="joinNow('Regular Starter Kit', 150200)">Join with Regular Kit</button>
+          </div>
+
+          <!-- P4 Business Builder Kit -->
+          <div class="package-card featured">
+            <div style="position: absolute; top: -12px; right: 1.5rem; background: var(--gold-accent); color: white; padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700;">RECOMMENDED</div>
+
+            <div class="package-name">P4 Business Builder Kit</div>
+            <div class="package-price">315,000 RWF</div>
+
+            <div style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 0; margin: 1.5rem 0;">
+              <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--primary-blue);">What's Included:</h4>
+              <ul class="package-includes">
+                <li>Shake Off</li>
+                <li>2 MrD Nutrition Drinks</li>
+                <li>Splina Liquid Chlorophyll</li>
+                <li>Red Coffee</li>
+                <li>Ginseng Coffee</li>
+                <li>Edmark Tumbler</li>
+                <li>Sales Kit Bag + Sachets</li>
+              </ul>
+            </div>
+
+            <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--primary-blue);">You'll Get:</h4>
+            <ul class="package-includes" style="margin-bottom: 0;">
+              <li>Official Edmark Membership</li>
+              <li>Complete Starter Package</li>
+              <li>Professional Training</li>
+              <li>Business Coach</li>
+              <li>Marketing Materials</li>
+              <li>Faster Business Growth</li>
+            </ul>
+
+            <button class="join-btn primary" onclick="joinNow('P4 Business Builder Kit', 315000)">Join with P4 Kit</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card info-panel" style="max-width: 760px; margin: 0 auto;">
+          <div class="section-heading">
+            <p class="eyebrow">Apply to become a distributor</p>
+            <h2>Start your application</h2>
+          </div>
+          <form id="distributorForm" class="contact-form">
+            <label>Full name<input type="text" name="full_name" required /></label>
+            <label>Phone<input type="tel" name="phone" required /></label>
+            <label>Email<input type="email" name="email" required /></label>
+            <label>District<input type="text" name="district" required /></label>
+            <label>Message<textarea name="message" rows="4"></textarea></label>
+            <button class="btn btn-primary" type="submit">Submit Application</button>
+            <p id="distributorMessage" class="cart-message"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- After Registration -->
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Your Success Path</p>
+          <h2>After Registration</h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+          <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; color: var(--primary-green); margin-bottom: 1rem;">✓</div>
+            <h4>1. Complete Registration</h4>
+            <p style="font-size: 0.95rem;">Finalize your membership with our team</p>
+          </div>
+
+          <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; color: var(--primary-green); margin-bottom: 1rem;">✓</div>
+            <h4>2. Receive Package</h4>
+            <p style="font-size: 0.95rem;">Get your membership package delivered</p>
+          </div>
+
+          <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; color: var(--primary-green); margin-bottom: 1rem;">✓</div>
+            <h4>3. Meet Your Mentor</h4>
+            <p style="font-size: 0.95rem;">Connect with your personal business mentor</p>
+          </div>
+
+          <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; color: var(--primary-green); margin-bottom: 1rem;">✓</div>
+            <h4>4. Attend Training</h4>
+            <p style="font-size: 0.95rem;">Complete professional business training</p>
+          </div>
+
+          <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; color: var(--primary-green); margin-bottom: 1rem;">✓</div>
+            <h4>5. Start Selling</h4>
+            <p style="font-size: 0.95rem;">Begin building your customer base</p>
+          </div>
+
+          <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; color: var(--primary-green); margin-bottom: 1rem;">✓</div>
+            <h4>6. Build Your Team</h4>
+            <p style="font-size: 0.95rem;">Recruit and grow your network</p>
+          </div>
+
+          <div class="card" style="text-align: center;">
+            <div style="font-size: 2rem; color: var(--primary-green); margin-bottom: 1rem;">✓</div>
+            <h4>7. Grow Your Business</h4>
+            <p style="font-size: 0.95rem;">Achieve your financial goals</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose P4 -->
+    <section class="section alt-bg">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Expert Recommendation</p>
+          <h2>Why Choose the P4 Business Builder Kit?</h2>
+        </div>
+
+        <div class="section-grid two-col">
+          <div>
+            <p style="margin-bottom: 1rem;">The P4 Business Builder Kit is our most popular choice because it gives you everything you need to start strong.</p>
+            <ul style="list-style: none; padding: 0;">
+              <li style="padding: 0.8rem 0; padding-left: 1.5rem; position: relative; color: #666;">✓ Double the product samples to test and share</li>
+              <li style="padding: 0.8rem 0; padding-left: 1.5rem; position: relative; color: #666;">✓ Dedicated business coach for personalized support</li>
+              <li style="padding: 0.8rem 0; padding-left: 1.5rem; position: relative; color: #666;">✓ Complete marketing materials included</li>
+              <li style="padding: 0.8rem 0; padding-left: 1.5rem; position: relative; color: #666;">✓ Better ROI for serious entrepreneurs</li>
+              <li style="padding: 0.8rem 0; padding-left: 1.5rem; position: relative; color: #666;">✓ Faster path to profitability</li>
+            </ul>
+          </div>
+
+          <div class="card info-panel">
+            <h3>Get Started Faster</h3>
+            <p>Distributors who choose the P4 kit typically achieve their first sales within the first week and build a team within the first month.</p>
+            <p style="margin-top: 1rem; margin-bottom: 0; font-weight: 700; color: var(--primary-green);">Join thousands of successful P4 kit holders!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Questions?</p>
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div style="max-width: 800px; margin: 2rem auto;">
+          <div class="card" style="margin-bottom: 1rem;">
+            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Can I return my package if I change my mind?</h4>
+            <p style="margin: 0; color: #666;">Yes, we offer a 30-day money-back guarantee if you're not satisfied.</p>
+          </div>
+
+          <div class="card" style="margin-bottom: 1rem;">
+            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">How long does it take to receive my package?</h4>
+            <p style="margin: 0; color: #666;">Most packages are delivered within 3-5 business days in Kigali. Countrywide delivery varies.</p>
+          </div>
+
+          <div class="card" style="margin-bottom: 1rem;">
+            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Do I need to recruit to make money?</h4>
+            <p style="margin: 0; color: #666;">No! You can earn from direct sales alone. Recruitment accelerates your income growth.</p>
+          </div>
+
+          <div class="card" style="margin-bottom: 1rem;">
+            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">What if I need support after registration?</h4>
+            <p style="margin: 0; color: #666;">Your personal mentor provides ongoing support. We also have a support team available via WhatsApp and phone.</p>
+          </div>
+
+          <div class="card" style="margin-bottom: 1rem;">
+            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Can I upgrade my package later?</h4>
+            <p style="margin: 0; color: #666;">Yes, many distributors upgrade to the P4 kit after starting with the regular kit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section" style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-green)); color: var(--white);">
+      <div class="container" style="text-align: center;">
+        <h2 style="color: var(--white); margin-bottom: 1rem;">Ready to Start?</h2>
+        <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; font-size: 1.1rem;">Contact us today to order your package and begin your journey</p>
+        <div class="hero-actions" style="justify-content: center;">
+          <a class="btn btn-primary" href="https://wa.me/250788991551" target="_blank" style="background: var(--gold-accent); color: var(--text);">Order via WhatsApp</a>
+          <a class="btn btn-secondary" href="contact.html" style="background: rgba(255,255,255,0.2); color: var(--white); border-color: var(--white);">Contact Us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="footer-brand" style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Edmark Rwanda</p>
+        <p>Your Trusted Wellness & Business Success Partner</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="business-opportunity.html">Business</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact Info</h3>
+        <ul>
+          <li>📍 Kigali, Rwanda</li>
+          <li>📱 +250 788 991 551</li>
+          <li>✉️ info@edmarkrwanda.com</li>
+        </ul>
+        <div style="margin-top: 1rem;">
+          <h3>Follow Us</h3>
+          <div class="social-icons" style="margin-top: 0.5rem; display:flex; gap:0.5rem; align-items:center;">
+            <a href="https://facebook.com" target="_blank"><img src="images/social/facebook.svg" alt="Facebook" width="28" height="28"></a>
+            <a href="https://instagram.com" target="_blank"><img src="images/social/instagram.svg" alt="Instagram" width="28" height="28"></a>
+            <a href="https://twitter.com" target="_blank"><img src="images/social/twitter.svg" alt="Twitter" width="28" height="28"></a>
+            <a href="https://youtube.com" target="_blank"><img src="images/social/youtube.svg" alt="YouTube" width="28" height="28"></a>
+            <a href="https://tiktok.com" target="_blank"><img src="images/social/tiktok.svg" alt="TikTok" width="28" height="28"></a>
+            <a href="https://linkedin.com" target="_blank"><img src="images/social/linkedin.svg" alt="LinkedIn" width="28" height="28"></a>
+            <a href="https://wa.me/250788991551" target="_blank"><img src="images/social/whatsapp.svg" alt="WhatsApp" width="28" height="28"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 2rem; text-align: center;">
+      <p>&copy; 2024 Edmark Rwanda. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/250788991551" class="whatsapp-btn" title="Chat with us on WhatsApp" target="_blank">
+    💬
+  </a>
+
+  <script>
+    function joinNow(packageName, price) {
+      const message = `Hi, I'm interested in joining Edmark Rwanda with the ${packageName} (${price} RWF). Please provide more information.`;
+      const whatsappUrl = `https://wa.me/250788991551?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+  </script>
+  <script src="js/script.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Edmark Rwanda Premium Products - View detailed product information, benefits, ingredients, and pricing." />
+  <meta name="keywords" content="Edmark products, wellness, nutritional supplements, Rwanda" />
+  <title>Product Details | Edmark Rwanda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="Edmark Rwanda Logo" class="logo">
+      </a>
+      <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="business-opportunity.html">Business</a>
+        <a href="distributor.html">Become Distributor</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Breadcrumb -->
+    <section style="background: #f5f5f5; padding: 1rem 0;">
+      <div class="container" style="font-size: 0.95rem; color: #666;">
+        <a href="index.html">Home</a> / <a href="products.html">Products</a> / <span id="productName">Product Name</span>
+      </div>
+    </section>
+
+    <!-- Product Details Section -->
+    <section class="section">
+      <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
+        <!-- Product Image -->
+        <div>
+          <div id="productImage" style="width: 100%; height: 400px; background: linear-gradient(135deg, #e6f3ff, #cce6ff); border-radius: 1rem; display: grid; place-items: center; font-size: 5rem; margin-bottom: 1.5rem;">
+            🏥
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+            <div style="width: 100%; height: 80px; background: #f0f0f0; border-radius: 0.5rem; cursor: pointer;"></div>
+            <div style="width: 100%; height: 80px; background: #f0f0f0; border-radius: 0.5rem; cursor: pointer;"></div>
+            <div style="width: 100%; height: 80px; background: #f0f0f0; border-radius: 0.5rem; cursor: pointer;"></div>
+          </div>
+        </div>
+
+        <!-- Product Information -->
+        <div>
+          <p class="eyebrow" id="productTagline">Product Tagline</p>
+          <h1 id="productTitle" style="margin-bottom: 0.5rem;">Product Name</h1>
+          <p id="productSize" style="color: #666; font-size: 1rem; margin-bottom: 1rem;">Size/Quantity</p>
+
+          <!-- Rating -->
+          <div style="margin-bottom: 1.5rem;">
+            <div style="color: var(--gold-accent); font-size: 1.1rem; letter-spacing: 0.1em;">★★★★★</div>
+            <p style="color: #666; font-size: 0.95rem; margin-top: 0.3rem;">(Based on customer reviews)</p>
+          </div>
+
+          <!-- Price -->
+          <div style="background: linear-gradient(135deg, #f5f5f5, #f9f9f9); padding: 1.5rem; border-radius: 0.8rem; margin-bottom: 1.5rem;">
+            <p style="color: #666; margin-bottom: 0.5rem;">Price</p>
+            <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.5rem;" id="productPrice">57,000 RWF</div>
+            <p style="color: #999; font-size: 0.9rem;">Inclusive of all taxes</p>
+          </div>
+
+          <!-- Add to Cart -->
+          <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+            <div style="display: flex; border: 1px solid var(--border); border-radius: 0.6rem; overflow: hidden;">
+              <button id="qtyDecrease" style="width: 40px; background: white; border: none; cursor: pointer; font-size: 1.2rem;">−</button>
+              <input id="qtyInput" type="number" value="1" min="1" style="width: 60px; text-align: center; border: none; border-left: 1px solid var(--border); border-right: 1px solid var(--border);" />
+              <button id="qtyIncrease" style="width: 40px; background: white; border: none; cursor: pointer; font-size: 1.2rem;">+</button>
+            </div>
+            <button class="buy-btn" onclick="addToCart()">Order on WhatsApp</button>
+          </div>
+
+          <!-- WhatsApp Order -->
+          <a href="https://wa.me/250788991551" target="_blank" class="btn btn-secondary" style="display: block; text-align: center; margin-bottom: 2rem;">💬 Order via WhatsApp</a>
+
+          <!-- Key Benefits -->
+          <div>
+            <h3 style="margin-bottom: 1rem;">Key Benefits</h3>
+            <ul id="productBenefits" class="product-benefits">
+              <li>Benefit 1</li>
+              <li>Benefit 2</li>
+              <li>Benefit 3</li>
+              <li>Benefit 4</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Description -->
+    <section class="section alt-bg">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+          <div>
+            <h2 style="margin-bottom: 1rem;">Product Description</h2>
+            <p id="productDescription" style="color: #666; line-height: 1.8;">Product description goes here. This section provides detailed information about the product, its uses, and how it can benefit you.</p>
+          </div>
+          <div>
+            <h2 style="margin-bottom: 1rem;">How to Use</h2>
+            <p style="color: #666; line-height: 1.8;">Easy to prepare and use. Simply follow the instructions on the packaging for optimal results. Regular use is recommended for best benefits.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ingredients -->
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 2rem;">Ingredients & Specifications</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+          <div class="card info-panel">
+            <h3>Key Ingredients</h3>
+            <ul id="productIngredients" style="list-style: none; padding: 0; color: #666;">
+              <li style="padding: 0.5rem 0;">✓ Ingredient 1</li>
+              <li style="padding: 0.5rem 0;">✓ Ingredient 2</li>
+              <li style="padding: 0.5rem 0;">✓ Ingredient 3</li>
+            </ul>
+          </div>
+          <div class="card info-panel">
+            <h3>Specifications</h3>
+            <ul style="list-style: none; padding: 0; color: #666;">
+              <li style="padding: 0.5rem 0;"><strong>Format:</strong> Liquid/Powder/Capsule</li>
+              <li style="padding: 0.5rem 0;"><strong>Volume:</strong> 500ml / 100g / 30 capsules</li>
+              <li style="padding: 0.5rem 0;"><strong>Storage:</strong> Cool, dry place</li>
+              <li style="padding: 0.5rem 0;"><strong>Shelf Life:</strong> 24 months</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="section alt-bg">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Explore More</p>
+          <h2>Related Products</h2>
+        </div>
+        <div class="card-grid">
+          <article class="card product-card">
+            <img src="images/bio-elixir.png" alt="Bio-Elixir" class="product-image">
+            <p class="product-tagline">Wellness</p>
+            <h3>Bio-Elixir</h3>
+            <div class="product-price">85,000 RWF</div>
+            <button class="buy-btn">View Details</button>
+          </article>
+          <article class="card product-card">
+            <img src="images/cocollagen.png" alt="Cocollagen" class="product-image">
+            <p class="product-tagline">Weight Management</p>
+            <h3>Cocollagen</h3>
+            <div class="product-price">91,000 RWF</div>
+            <button class="buy-btn">View Details</button>
+          </article>
+          <article class="card product-card">
+            <img src="images/red-coffee.png" alt="Red Coffee" class="product-image">
+            <p class="product-tagline">Nutrition</p>
+            <h3>Red Coffee</h3>
+            <div class="product-price">20,200 RWF</div>
+            <button class="buy-btn">View Details</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Customer Reviews</p>
+          <h2>What Our Customers Say</h2>
+        </div>
+        <div class="card-grid">
+          <article class="card testimonial-card">
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Excellent product! I noticed results within weeks. Highly recommend!"</p>
+            <p class="testimonial-author">John K.</p>
+          </article>
+          <article class="card testimonial-card">
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Great quality and fast delivery. Very satisfied with my purchase."</p>
+            <p class="testimonial-author">Grace M.</p>
+          </article>
+          <article class="card testimonial-card">
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Best product in the market. Worth every penny!"</p>
+            <p class="testimonial-author">Peter N.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-green)); color: var(--white);">
+      <div class="container" style="text-align: center;">
+        <h2 style="color: var(--white); margin-bottom: 1rem;">Ready to Order?</h2>
+        <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; font-size: 1.1rem;">Get this product today and start your wellness journey</p>
+        <div class="hero-actions" style="justify-content: center;">
+          <a href="https://wa.me/250788991551" target="_blank" class="btn btn-primary" style="background: var(--gold-accent); color: var(--text);">Order Now</a>
+          <a href="products.html" class="btn btn-secondary" style="background: rgba(255,255,255,0.2); color: var(--white); border-color: var(--white);">Browse More</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="footer-brand" style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Edmark Rwanda</p>
+        <p>Your Trusted Wellness & Business Success Partner</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="business-opportunity.html">Business</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact Info</h3>
+        <ul>
+          <li>📍 Kigali, Rwanda</li>
+          <li>📱 +250 788 991 551</li>
+          <li>✉️ info@edmarkrwanda.com</li>
+        </ul>
+          <div style="margin-top: 1rem;">
+            <h3>Follow Us</h3>
+            <div class="social-icons" style="margin-top: 0.5rem; display:flex; gap:0.5rem; align-items:center;">
+              <a href="https://facebook.com" target="_blank"><img src="images/social/facebook.svg" alt="Facebook" width="28" height="28"></a>
+              <a href="https://instagram.com" target="_blank"><img src="images/social/instagram.svg" alt="Instagram" width="28" height="28"></a>
+              <a href="https://twitter.com" target="_blank"><img src="images/social/twitter.svg" alt="Twitter" width="28" height="28"></a>
+              <a href="https://youtube.com" target="_blank"><img src="images/social/youtube.svg" alt="YouTube" width="28" height="28"></a>
+              <a href="https://tiktok.com" target="_blank"><img src="images/social/tiktok.svg" alt="TikTok" width="28" height="28"></a>
+              <a href="https://linkedin.com" target="_blank"><img src="images/social/linkedin.svg" alt="LinkedIn" width="28" height="28"></a>
+              <a href="https://wa.me/250788991551" target="_blank"><img src="images/social/whatsapp.svg" alt="WhatsApp" width="28" height="28"></a>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 2rem; text-align: center;">
+      <p>&copy; 2024 Edmark Rwanda. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/250788991551" class="whatsapp-btn" title="Chat with us on WhatsApp" target="_blank">
+    💬
+  </a>
+
+  <script>
+    function addToCart() {
+      const qtyInput = document.getElementById('qtyInput');
+      const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value, 10)) : 1;
+      const productTitle = document.getElementById('productTitle')?.textContent?.trim() || 'Product';
+      const productPriceText = document.getElementById('productPrice')?.textContent?.trim() || '';
+      const message = `Hello, I would like to order the following product from Edmark Rwanda:%0A- Product: ${productTitle}%0A- Quantity: ${quantity}%0A- Price: ${productPriceText}%0A%0APlease send me the payment and delivery details.`;
+      const whatsappUrl = `https://wa.me/250788991551?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    document.getElementById('qtyDecrease')?.addEventListener('click', () => {
+      const input = document.getElementById('qtyInput');
+      if (input) {
+        input.value = Math.max(1, parseInt(input.value, 10) - 1);
+      }
+    });
+
+    document.getElementById('qtyIncrease')?.addEventListener('click', () => {
+      const input = document.getElementById('qtyInput');
+      if (input) {
+        input.value = Math.max(1, parseInt(input.value, 10) + 1);
+      }
+    });
+  </script>
+  <script src="js/script.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

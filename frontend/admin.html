@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | Edmark Rwanda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="page-surface dashboard-shell">
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="Edmark Rwanda Logo" class="logo">
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="admin.html" class="active">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Admin Control Center</p>
+        <h1>Manage products, orders, and distributor applications</h1>
+        <p>Secure dashboard for your Edmark Rwanda operations.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="adminAccessMessage" class="loading-message">Checking access...</div>
+        <div id="adminDashboard" style="display:none;">
+          <div class="stats-grid" id="dashboardStats"></div>
+
+          <div class="admin-section card">
+            <div class="section-heading">
+              <p class="eyebrow">Product Management</p>
+              <h2>Add or update products</h2>
+            </div>
+            <form id="productForm" class="admin-form">
+              <input type="hidden" id="productId" />
+              <div class="form-grid">
+                <label>Name<input id="productName" required /></label>
+                <label>Category<input id="productCategory" required /></label>
+                <label>Price<input id="productPrice" type="number" min="0" step="1000" required /></label>
+                <label>Stock<input id="productStock" type="number" min="0" step="1" required /></label>
+                <label>Image URL<input id="productImage" /></label>
+                <label>Status<select id="productStatus"><option value="active">Active</option><option value="archived">Archived</option></select></label>
+                <label class="checkbox-row"><input id="productFeatured" type="checkbox" /> Featured</label>
+              </div>
+              <label>Description<textarea id="productDescription" rows="4"></textarea></label>
+              <div class="hero-actions">
+                <button class="btn btn-primary" type="submit">Save Product</button>
+                <button class="btn btn-secondary" type="button" id="cancelProductEdit">Cancel</button>
+              </div>
+            </form>
+            <div id="productList" class="admin-list"></div>
+          </div>
+
+          <div class="admin-section card">
+            <div class="section-heading">
+              <p class="eyebrow">Order Management</p>
+              <h2>Review incoming orders</h2>
+            </div>
+            <div id="ordersList" class="admin-list"></div>
+          </div>
+
+          <div class="admin-section card">
+            <div class="section-heading">
+              <p class="eyebrow">Distributor Management</p>
+              <h2>Approve or reject distributor requests</h2>
+            </div>
+            <div id="distributorsList" class="admin-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

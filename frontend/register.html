@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Register - Edmark Rwanda</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-surface">
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="index.html"><img src="images/logo.png" alt="Logo" class="logo"></a>
+      <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle"><span></span><span></span><span></span></button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="business-opportunity.html">Business</a>
+        <a href="distributor.html">Become Distributor</a>
+        <a href="about.html">About</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>tions.
+
+  <main class="section">
+    <div class="container" style="max-width:680px; margin: 3rem auto;">
+      <div class="page-card">
+        <h1>Create an account</h1>
+        <form id="registerForm">
+          <label>Full name<br><input type="text" name="full_name" required></label>
+          <label>Phone<br><input type="tel" name="phone"></label>
+          <label>Email<br><input type="email" name="email" required></label>
+          <label>Password<br><input type="password" name="password" id="registerPassword" required></label>
+          <label>Confirm Password<br><input type="password" name="confirm_password" id="confirmPassword" required></label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.95rem; margin-top:-0.5rem;"><input type="checkbox" id="showRegisterPassword"> Show password</label>
+          <button type="submit" class="btn btn-primary">Register</button>
+          <p id="registerMessage"></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
