@@ -6,7 +6,6 @@ const cors = require("cors");
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
-const { initializeDatabase } = require("./db");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -36,6 +35,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/distributors", distributorsRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/testimonials", testimonialsRoutes);
+const uploadRoutes = require("./routes/upload");
+app.use("/api/upload", uploadRoutes);
+const paymentRoutes = require("./routes/payments");
+app.use("/api/payments", paymentRoutes);
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(frontendDir, "index.html"));
@@ -50,13 +53,6 @@ app.get("/:page", (req, res, next) => {
     next();
 });
 
-initializeDatabase().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
-}).catch((error) => {
-    console.error("Failed to initialize database:", error.message);
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
