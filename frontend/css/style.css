@@ -21,16 +21,12 @@ body {
   color: var(--text);
   line-height: 1.7;
   min-height: 100vh;
-  background: radial-gradient(circle at top left, rgba(30, 142, 62, 0.08), transparent 20%),
-              linear-gradient(180deg, #f8fbff 0%, #ffffff 65%, #f7f9ff 100%);
+  background: #f8fbff;
   position: relative;
 }
 
 body.page-surface {
-  background:
-    radial-gradient(circle at top left, rgba(11, 45, 115, 0.14), transparent 24%),
-    radial-gradient(circle at bottom right, rgba(30, 142, 62, 0.12), transparent 28%),
-    linear-gradient(135deg, #f4f8ff 0%, #ffffff 50%, #f7fbf8 100%);
+  background: #f4f8ff;
 }
 
 body.page-surface main {
@@ -130,7 +126,7 @@ img {
   place-items: center;
   width: 2.2rem;
   height: 2.2rem;
-  background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+  background: var(--primary-blue);
   color: var(--white);
   border-radius: 50%;
 }
@@ -173,7 +169,7 @@ img {
 .hero,
 .page-hero {
   padding: 5rem 0 4rem;
-  background: linear-gradient(180deg, #eef4ff 0%, #ffffff 70%);
+  background: #eef4ff;
   position: relative;
   overflow: hidden;
 }
@@ -185,7 +181,7 @@ img {
   right: -10%;
   width: 520px;
   height: 520px;
-  background: radial-gradient(circle, rgba(11, 45, 115, 0.08) 0%, transparent 65%);
+  background: rgba(11, 45, 115, 0.04);
   border-radius: 50%;
   z-index: 0;
 }
@@ -197,7 +193,7 @@ img {
   left: -15%;
   width: 420px;
   height: 420px;
-  background: radial-gradient(circle, rgba(30, 142, 62, 0.08) 0%, transparent 65%);
+  background: rgba(30, 142, 62, 0.04);
   border-radius: 50%;
   z-index: 0;
 }
@@ -303,7 +299,7 @@ h2 {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+  background: var(--primary-green);
   color: var(--white);
   box-shadow: 0 12px 30px rgba(30, 142, 62, 0.2);
   border: none;
@@ -357,11 +353,6 @@ h2 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2rem;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  transition: transform 0.2s ease;
 }
 
 .features-grid {
@@ -477,7 +468,7 @@ h2 {
   border-radius: 1rem;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #f8fbff, #edf5ff);
+  background: #f8fbff;
   color: var(--primary-blue);
   text-align: center;
 }
@@ -595,27 +586,6 @@ h2 {
   background: #fff;
 }
 
-.filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-}
-
-.filter-btn {
-  border: 1px solid var(--border);
-  background: #fff;
-  color: var(--text);
-  padding: 0.7rem 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.filter-btn.active {
-  background: var(--primary-green);
-  color: #fff;
-  border-color: var(--primary-green);
-}
-
 .pagination-controls {
   display: flex;
   justify-content: center;
@@ -698,7 +668,7 @@ h2 {
   object-position: center;
   border-radius: 1rem;
   margin-bottom: 1.8rem;
-  background: linear-gradient(135deg, #f0f7ff 0%, #f9fbff 100%);
+  background: #f0f7ff;
   padding: 1.5rem;
   display: flex;
   align-items: center;
@@ -746,7 +716,7 @@ h2 {
 }
 
 .buy-btn {
-  background: linear-gradient(135deg, var(--primary-green), #1a7a2f);
+  background: var(--primary-green);
   color: var(--white);
   padding: 1rem 1.5rem;
   border-radius: 0.8rem;
@@ -761,7 +731,7 @@ h2 {
 }
 
 .buy-btn:hover {
-  background: linear-gradient(135deg, rgba(26, 122, 47, 1), rgba(30, 142, 62, 1));
+  background: #1a7a2f;
   transform: translateY(-2px);
   box-shadow: 0 12px 48px rgba(30, 142, 62, 0.4);
 }
@@ -821,7 +791,7 @@ h2 {
 
 .package-card.featured {
   border: 1px solid var(--gold-accent);
-  background: linear-gradient(180deg, #fffaf0 0%, #fff5dc 100%);
+  background: #fffaf0;
   box-shadow: 0 18px 50px rgba(216, 161, 30, 0.15);
 }
 
@@ -956,7 +926,7 @@ h2 {
 
 .filter-btn:hover,
 .filter-btn.active {
-  background: linear-gradient(135deg, var(--primary-green), #1a7a2f);
+  background: var(--primary-green);
   color: var(--white);
   border-color: var(--primary-green);
   box-shadow: 0 8px 26px rgba(30, 142, 62, 0.25);
@@ -970,7 +940,6 @@ h2 {
   padding: 1.2rem;
   border-radius: 0.8rem;
   margin-bottom: 1.5rem;
-  border-left: 4px solid var(--primary-green);
   border: 1px solid rgba(30, 142, 62, 0.16);
 }
 
