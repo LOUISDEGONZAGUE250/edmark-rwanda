@@ -298,7 +298,7 @@ async function loadProductDetails() {
     }
     const ingredientsList = document.getElementById('productIngredients');
     if (ingredientsList && Array.isArray(product.ingredients)) {
-      ingredientsList.innerHTML = product.ingredients.map((ingredient) => `<li>✓ ${escapeHtml(ingredient)}</li>`).join('');
+      ingredientsList.innerHTML = product.ingredients.map((ingredient) => `<li><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-green);"></i> ${escapeHtml(ingredient)}</li>`).join('');
     }
   } catch (error) {
     const fallbackProduct = fallbackProducts.find((product) => String(product.id) === String(productId));
@@ -316,7 +316,7 @@ async function loadProductDetails() {
       }
       const ingredientsList = document.getElementById('productIngredients');
       if (ingredientsList && Array.isArray(fallbackProduct.ingredients)) {
-        ingredientsList.innerHTML = fallbackProduct.ingredients.map((ingredient) => `<li>✓ ${escapeHtml(ingredient)}</li>`).join('');
+        ingredientsList.innerHTML = fallbackProduct.ingredients.map((ingredient) => `<li><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-green);"></i> ${escapeHtml(ingredient)}</li>`).join('');
       }
       return;
     }
@@ -528,6 +528,8 @@ async function placeOrder() {
   const nameInput = document.getElementById('customer-name');
   const emailInput = document.getElementById('customer-email');
   const messageArea = document.getElementById('cart-message');
+  const paymentMethod = document.getElementById('payment-method')?.value || 'cash';
+  const mtnPhone = document.getElementById('mtn-phone')?.value?.trim() || '';
 
   if (!nameInput || !emailInput || !messageArea) return;
 
@@ -537,11 +539,24 @@ async function placeOrder() {
     return;
   }
 
+  if (!nameInput.value.trim() || !emailInput.value.trim()) {
+    messageArea.textContent = 'Please enter your name and email.';
+    messageArea.style.color = '#c0392b';
+    return;
+  }
+
+  if (paymentMethod === 'mtn' && !mtnPhone) {
+    messageArea.textContent = 'Please enter your MTN phone number.';
+    messageArea.style.color = '#c0392b';
+    return;
+  }
+
   const loggedUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
   const payload = {
     user_id: loggedUser ? loggedUser.id : null,
     customer_name: nameInput.value.trim(),
     customer_email: emailInput.value.trim(),
+    payment_method: paymentMethod,
     items: cart.map(item => ({
       product_id: item.product_id,
       product_name: item.product_name,
@@ -549,12 +564,6 @@ async function placeOrder() {
       unit_price: item.unit_price
     }))
   };
-
-  if (!payload.customer_name || !payload.customer_email) {
-    messageArea.textContent = 'Please enter your name and email.';
-    messageArea.style.color = '#c0392b';
-    return;
-  }
 
   try {
     const headers = { 'Content-Type': 'application/json' };
@@ -571,15 +580,112 @@ async function placeOrder() {
       throw new Error(data.error || 'Unable to place order');
     }
 
+    const orderId = data.orderId;
     cart.length = 0;
     renderCart();
-    messageArea.textContent = `Order placed successfully. Order ID: ${data.orderId}`;
-    messageArea.style.color = '#2d8a2d';
+
+    if (paymentMethod === 'mtn') {
+      messageArea.textContent = `Order #${orderId} placed. Initiating MTN payment...`;
+      messageArea.style.color = '#2d8a2d';
+      await initiateMtnPayment(orderId, mtnPhone);
+    } else {
+      messageArea.textContent = `Order placed successfully. Order ID: ${orderId}`;
+      messageArea.style.color = '#2d8a2d';
+    }
   } catch (error) {
     console.error('Order submission failed:', error);
-    messageArea.textContent = 'Order failed. Please try again later.';
+    messageArea.textContent = error.message || 'Order failed. Please try again later.';
     messageArea.style.color = '#c0392b';
   }
+}
+
+async function initiateMtnPayment(orderId, phone) {
+  const total = cart.length > 0
+    ? cart.reduce((sum, item) => sum + item.unit_price * item.quantity, 0)
+    : 0;
+
+  const totalEl = document.getElementById('cart-total');
+  const amount = totalEl ? parseInt(totalEl.textContent.replace(/,/g, '')) : total;
+
+  const statusDiv = document.getElementById('payment-status');
+  if (statusDiv) {
+    statusDiv.style.display = 'block';
+    statusDiv.style.background = '#e8f4fd';
+    statusDiv.style.color = '#0B2D73';
+    statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Initiating MTN Mobile Money payment...';
+  }
+
+  try {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = localStorage.getItem('token');
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    const response = await fetch(`${API_BASE}/payments/initiate`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        order_id: orderId,
+        amount: amount,
+        phone: phone,
+        provider: 'mtn',
+      })
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Payment initiation failed');
+
+    if (statusDiv) {
+      statusDiv.style.background = '#e8fbf0';
+      statusDiv.style.color = '#1E8E3E';
+      statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Payment request sent! Please check your phone to complete the payment.';
+    }
+
+    pollPaymentStatus(data.payment_ref);
+  } catch (error) {
+    if (statusDiv) {
+      statusDiv.style.background = '#fdecea';
+      statusDiv.style.color = '#c0392b';
+      statusDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${error.message || 'Payment initiation failed'}. You can pay later via WhatsApp.`;
+    }
+  }
+}
+
+async function pollPaymentStatus(paymentRef, attempts = 0) {
+  if (attempts >= 30) return;
+  const statusDiv = document.getElementById('payment-status');
+
+  setTimeout(async () => {
+    try {
+      const headers = {};
+      const token = localStorage.getItem('token');
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
+      const response = await fetch(`${API_BASE}/payments/status/${paymentRef}`, { headers });
+      const data = await response.json();
+
+      if (data.status === 'completed' || data.status === 'successful') {
+        if (statusDiv) {
+          statusDiv.style.background = '#e8fbf0';
+          statusDiv.style.color = '#1E8E3E';
+          statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Payment completed successfully!';
+        }
+        return;
+      }
+
+      if (data.status === 'failed' || data.status === 'cancelled') {
+        if (statusDiv) {
+          statusDiv.style.background = '#fdecea';
+          statusDiv.style.color = '#c0392b';
+          statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> Payment was not completed. Please try again or use WhatsApp.';
+        }
+        return;
+      }
+
+      pollPaymentStatus(paymentRef, attempts + 1);
+    } catch (error) {
+      pollPaymentStatus(paymentRef, attempts + 1);
+    }
+  }, 5000);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -622,6 +728,16 @@ window.addEventListener('DOMContentLoaded', () => {
   const checkoutButton = document.getElementById('checkout-button');
   if (checkoutButton) {
     checkoutButton.addEventListener('click', placeOrder);
+  }
+
+  const paymentMethod = document.getElementById('payment-method');
+  if (paymentMethod) {
+    paymentMethod.addEventListener('change', () => {
+      const mtnSection = document.getElementById('mtn-phone-section');
+      if (mtnSection) {
+        mtnSection.style.display = paymentMethod.value === 'mtn' ? 'block' : 'none';
+      }
+    });
   }
 
   const logoutButton = document.getElementById('logoutButton');
