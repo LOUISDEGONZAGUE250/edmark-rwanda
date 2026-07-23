@@ -1,3 +1,7 @@
+// @deprecated - Use Prisma ORM via lib/prisma.js instead.
+// This file is kept for reference and legacy seed data only.
+// All routes now use prisma (lib/prisma.js) as the primary database client.
+
 const { Pool } = require("pg");
 const bcrypt = require("bcrypt");
 
