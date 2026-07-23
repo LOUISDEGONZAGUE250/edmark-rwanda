@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { pool } = require("../db");
+const prisma = require("../lib/prisma");
 const { authenticate, requireAdmin } = require("../middleware/auth");
 
 const fallbackProducts = [
@@ -62,19 +62,23 @@ const fallbackProducts = [
     }
 ];
 
-function formatProducts(rows) {
-    return rows.map((row) => ({
+function formatProduct(row) {
+    return {
         ...row,
         price: Number(row.price || 0),
         stock_quantity: Number(row.stock_quantity || 0),
-    }));
+    };
+}
+
+function formatProducts(rows) {
+    return rows.map(formatProduct);
 }
 
 router.get("/", async (req, res) => {
     try {
-        const result = await pool.query("SELECT * FROM products ORDER BY id");
-        if (result.rows.length > 0) {
-            return res.json(formatProducts(result.rows));
+        const rows = await prisma.product.findMany({ orderBy: { id: 'asc' } });
+        if (rows.length > 0) {
+            return res.json(formatProducts(rows));
         }
     } catch (err) {
         console.error("Products query failed:", err.message);
@@ -85,8 +89,13 @@ router.get("/", async (req, res) => {
 
 router.get("/categories", async (req, res) => {
     try {
-        const result = await pool.query("SELECT DISTINCT category FROM products WHERE category IS NOT NULL ORDER BY category");
-        return res.json(result.rows.map((row) => row.category));
+        const result = await prisma.product.findMany({
+            distinct: ['category'],
+            where: { category: { not: null } },
+            select: { category: true },
+            orderBy: { category: 'asc' }
+        });
+        return res.json(result.map((row) => row.category));
     } catch (err) {
         console.error("Categories query failed:", err.message);
         return res.status(500).json({ error: "Failed to load categories" });
@@ -97,9 +106,9 @@ router.get("/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
-        const result = await pool.query("SELECT * FROM products WHERE id = $1", [id]);
-        if (result.rows.length > 0) {
-            return res.json(formatProducts(result.rows)[0]);
+        const product = await prisma.product.findUnique({ where: { id: parseInt(id) } });
+        if (product) {
+            return res.json(formatProduct(product));
         }
     } catch (err) {
         console.error("Product lookup failed:", err.message);
@@ -116,12 +125,23 @@ router.get("/:id", async (req, res) => {
 router.post("/", authenticate, requireAdmin, async (req, res) => {
     const { name, description, price, image_url, category, stock_quantity, status, tagline, benefits, ingredients, size, featured } = req.body;
     try {
-        const result = await pool.query(
-            `INSERT INTO products (name, description, price, image_url, category, stock_quantity, status, tagline, benefits, ingredients, size, featured)
-             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *`,
-            [name, description || null, price || 0, image_url || null, category || null, stock_quantity || 0, status || "active", tagline || null, benefits || null, ingredients || null, size || null, featured || false]
-        );
-        res.status(201).json(formatProducts(result.rows)[0]);
+        const product = await prisma.product.create({
+            data: {
+                name,
+                description: description || null,
+                price: price || 0,
+                image_url: image_url || null,
+                category: category || null,
+                stock_quantity: stock_quantity || 0,
+                status: status || "active",
+                tagline: tagline || null,
+                benefits: benefits || [],
+                ingredients: ingredients || [],
+                size: size || null,
+                featured: featured || false,
+            }
+        });
+        res.status(201).json(formatProduct(product));
     } catch (err) {
         console.error("Create product failed:", err.message);
         res.status(500).json({ error: "Failed to create product" });
@@ -131,19 +151,13 @@ router.post("/", authenticate, requireAdmin, async (req, res) => {
 router.put("/:id", authenticate, requireAdmin, async (req, res) => {
     const { id } = req.params;
     const fields = req.body;
-    const setClauses = [];
-    const values = [];
-    let idx = 1;
-    for (const key in fields) {
-        setClauses.push(`${key} = $${idx}`);
-        values.push(fields[key]);
-        idx++;
-    }
-    if (setClauses.length === 0) return res.status(400).json({ error: "No fields to update" });
-    values.push(id);
+    if (Object.keys(fields).length === 0) return res.status(400).json({ error: "No fields to update" });
     try {
-        const result = await pool.query(`UPDATE products SET ${setClauses.join(", ")} WHERE id = $${idx} RETURNING *`, values);
-        res.json(formatProducts(result.rows)[0]);
+        const product = await prisma.product.update({
+            where: { id: parseInt(id) },
+            data: fields,
+        });
+        res.json(formatProduct(product));
     } catch (err) {
         console.error("Update product failed:", err.message);
         res.status(500).json({ error: "Failed to update product" });
@@ -153,7 +167,7 @@ router.put("/:id", authenticate, requireAdmin, async (req, res) => {
 router.delete("/:id", authenticate, requireAdmin, async (req, res) => {
     const { id } = req.params;
     try {
-        await pool.query("DELETE FROM products WHERE id = $1", [id]);
+        await prisma.product.delete({ where: { id: parseInt(id) } });
         res.json({ message: "Product deleted" });
     } catch (err) {
         console.error("Delete product failed:", err.message);
