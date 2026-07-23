@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -46,7 +47,7 @@
         <!-- Product Image -->
         <div>
           <div id="productImage" style="width: 100%; height: 400px; background: linear-gradient(135deg, #e6f3ff, #cce6ff); border-radius: 1rem; display: grid; place-items: center; font-size: 5rem; margin-bottom: 1.5rem;">
-            🏥
+            <i class="fas fa-hospital"></i>
           </div>
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
             <div style="width: 100%; height: 80px; background: #f0f0f0; border-radius: 0.5rem; cursor: pointer;"></div>
@@ -63,7 +64,7 @@
 
           <!-- Rating -->
           <div style="margin-bottom: 1.5rem;">
-            <div style="color: var(--gold-accent); font-size: 1.1rem; letter-spacing: 0.1em;">★★★★★</div>
+            <div style="color: var(--gold-accent); font-size: 1.1rem; letter-spacing: 0.1em;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
             <p style="color: #666; font-size: 0.95rem; margin-top: 0.3rem;">(Based on customer reviews)</p>
           </div>
 
@@ -84,8 +85,22 @@
             <button class="buy-btn" onclick="addToCart()">Order on WhatsApp</button>
           </div>
 
-          <!-- WhatsApp Order -->
-          <a href="https://wa.me/250788991551" target="_blank" class="btn btn-secondary" style="display: block; text-align: center; margin-bottom: 2rem;">💬 Order via WhatsApp</a>
+          <!-- Payment Options -->
+          <div style="margin-bottom: 2rem;">
+            <h3 style="margin-bottom: 1rem;">Payment Options</h3>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <a href="https://wa.me/250788991551" target="_blank" class="btn btn-secondary" style="flex: 1; min-width: 200px; text-align: center;"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
+              <button class="btn btn-primary" onclick="payWithMtn()" style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #FFCC00, #E6B800); color: #333; border: none;"><i class="fas fa-mobile-alt"></i> Pay with MTN Mobile Money</button>
+            </div>
+            <div id="mtn-payment-section" style="display: none; margin-top: 1rem;">
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">MTN Phone Number</label>
+              <div style="display: flex; gap: 0.5rem;">
+                <input id="mtn-phone-input" type="tel" placeholder="078XXXXXXX" style="flex: 1; padding: 0.8rem 1rem; border: 1px solid var(--border); border-radius: 0.6rem; font: inherit;" />
+                <button class="btn btn-primary" onclick="processMtnPayment()" style="padding: 0.8rem 1.5rem;">Pay Now</button>
+              </div>
+              <div id="product-payment-status" style="margin-top: 1rem;"></div>
+            </div>
+          </div>
 
           <!-- Key Benefits -->
           <div>
@@ -125,9 +140,9 @@
           <div class="card info-panel">
             <h3>Key Ingredients</h3>
             <ul id="productIngredients" style="list-style: none; padding: 0; color: #666;">
-              <li style="padding: 0.5rem 0;">✓ Ingredient 1</li>
-              <li style="padding: 0.5rem 0;">✓ Ingredient 2</li>
-              <li style="padding: 0.5rem 0;">✓ Ingredient 3</li>
+              <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-green);"></i> Ingredient 1</li>
+              <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-green);"></i> Ingredient 2</li>
+              <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-green);"></i> Ingredient 3</li>
             </ul>
           </div>
           <div class="card info-panel">
@@ -185,17 +200,17 @@
         </div>
         <div class="card-grid">
           <article class="card testimonial-card">
-            <div class="testimonial-rating">★★★★★</div>
+            <div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
             <p class="testimonial-text">"Excellent product! I noticed results within weeks. Highly recommend!"</p>
             <p class="testimonial-author">John K.</p>
           </article>
           <article class="card testimonial-card">
-            <div class="testimonial-rating">★★★★★</div>
+            <div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
             <p class="testimonial-text">"Great quality and fast delivery. Very satisfied with my purchase."</p>
             <p class="testimonial-author">Grace M.</p>
           </article>
           <article class="card testimonial-card">
-            <div class="testimonial-rating">★★★★★</div>
+            <div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
             <p class="testimonial-text">"Best product in the market. Worth every penny!"</p>
             <p class="testimonial-author">Peter N.</p>
           </article>
@@ -235,9 +250,9 @@
       <div>
         <h3>Contact Info</h3>
         <ul>
-          <li>📍 Kigali, Rwanda</li>
-          <li>📱 +250 788 991 551</li>
-          <li>✉️ info@edmarkrwanda.com</li>
+          <li><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</li>
+          <li><i class="fas fa-phone"></i> +250 788 991 551</li>
+          <li><i class="fas fa-envelope"></i> info@edmarkrwanda.com</li>
         </ul>
           <div style="margin-top: 1rem;">
             <h3>Follow Us</h3>
@@ -260,7 +275,7 @@
 
   <!-- WhatsApp Floating Button -->
   <a href="https://wa.me/250788991551" class="whatsapp-btn" title="Chat with us on WhatsApp" target="_blank">
-    💬
+    <i class="fab fa-whatsapp"></i>
   </a>
 
   <script>
@@ -272,6 +287,78 @@
       const message = `Hello, I would like to order the following product from Edmark Rwanda:%0A- Product: ${productTitle}%0A- Quantity: ${quantity}%0A- Price: ${productPriceText}%0A%0APlease send me the payment and delivery details.`;
       const whatsappUrl = `https://wa.me/250788991551?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
+    }
+
+    function payWithMtn() {
+      const section = document.getElementById('mtn-payment-section');
+      if (section) section.style.display = 'block';
+    }
+
+    async function processMtnPayment() {
+      const phone = document.getElementById('mtn-phone-input')?.value?.trim();
+      const statusDiv = document.getElementById('product-payment-status');
+      const priceText = document.getElementById('productPrice')?.textContent?.trim() || '0';
+      const amount = parseInt(priceText.replace(/[^0-9]/g, '')) || 0;
+      const productName = document.getElementById('productTitle')?.textContent?.trim() || 'Product';
+      const qtyInput = document.getElementById('qtyInput');
+      const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value, 10)) : 1;
+
+      if (!phone) {
+        if (statusDiv) {
+          statusDiv.innerHTML = '<p style="color: #c0392b;"><i class="fas fa-exclamation-circle"></i> Please enter your MTN phone number.</p>';
+        }
+        return;
+      }
+
+      if (statusDiv) {
+        statusDiv.innerHTML = '<p style="color: #0B2D73;"><i class="fas fa-spinner fa-spin"></i> Creating order and initiating payment...</p>';
+      }
+
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        const token = localStorage.getItem('token');
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const orderResponse = await fetch('/api/orders', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            customer_name: 'Customer',
+            customer_email: '',
+            payment_method: 'mtn',
+            items: [{
+              product_name: productName,
+              quantity: quantity,
+              unit_price: amount
+            }]
+          })
+        });
+
+        const orderData = await orderResponse.json();
+        if (!orderResponse.ok) throw new Error(orderData.error || 'Failed to create order');
+
+        const payResponse = await fetch('/api/payments/initiate', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            order_id: orderData.orderId,
+            amount: amount * quantity,
+            phone: phone,
+            provider: 'mtn',
+          })
+        });
+
+        const payData = await payResponse.json();
+        if (!payResponse.ok) throw new Error(payData.error || 'Payment initiation failed');
+
+        if (statusDiv) {
+          statusDiv.innerHTML = '<p style="color: #1E8E3E;"><i class="fas fa-check-circle"></i> Payment request sent! Check your phone to complete. Order #' + orderData.orderId + '</p>';
+        }
+      } catch (error) {
+        if (statusDiv) {
+          statusDiv.innerHTML = '<p style="color: #c0392b;"><i class="fas fa-exclamation-circle"></i> ' + (error.message || 'Payment failed') + '</p>';
+        }
+      }
     }
 
     document.getElementById('qtyDecrease')?.addEventListener('click', () => {
