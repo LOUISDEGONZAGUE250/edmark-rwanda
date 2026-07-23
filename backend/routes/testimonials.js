@@ -1,29 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const { pool } = require('../db');
+const prisma = require('../lib/prisma');
 
 router.post('/', async (req, res) => {
   const { customer_name, rating, message, image_url } = req.body;
   if (!customer_name || !message) return res.status(400).json({ error: 'customer_name and message required' });
   try {
-    const result = await pool.query(
-      'INSERT INTO testimonials (customer_name, rating, message, image_url) VALUES ($1,$2,$3,$4) RETURNING *',
-      [customer_name, rating || 5, message, image_url || null]
-    );
-    res.status(201).json(result.rows[0]);
+    const testimonial = await prisma.testimonial.create({
+      data: {
+        customer_name,
+        rating: rating || 5,
+        message,
+        image_url: image_url || null,
+      },
+    });
+    return res.status(201).json(testimonial);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ error: 'Failed to create testimonial' });
+    return res.status(500).json({ error: 'Failed to create testimonial' });
   }
 });
 
 router.get('/', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM testimonials ORDER BY created_at DESC');
-    res.json(result.rows);
+    const testimonials = await prisma.testimonial.findMany({
+      orderBy: { created_at: 'desc' },
+    });
+    return res.json(testimonials);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ error: 'Failed to fetch testimonials' });
+    return res.status(500).json({ error: 'Failed to fetch testimonials' });
   }
 });
 
