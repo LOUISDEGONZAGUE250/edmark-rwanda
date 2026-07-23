@@ -431,7 +431,7 @@ h2 {
   border: 1px solid var(--border);
   box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
 }
-}
+
 
 .contact-form label {
   display: grid;
@@ -728,7 +728,9 @@ h2 {
 }
 
 .product-benefits li:before {
-  content: "✓";
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
   position: absolute;
   left: 0;
   color: var(--primary-green);
@@ -851,7 +853,9 @@ h2 {
 }
 
 .package-includes li:before {
-  content: "✓";
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
   position: absolute;
   left: 0;
   color: var(--primary-green);
@@ -1072,5 +1076,197 @@ h2 {
 
   .product-card {
     padding: 1rem;
+  }
+}
+
+/* Smallest phones (320px and below) */
+@media (max-width: 360px) {
+  .container {
+    width: calc(100% - 1rem);
+  }
+
+  .section {
+    padding: 2.5rem 0;
+  }
+
+  .hero,
+  .page-hero {
+    padding: 2.5rem 0 2rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  .eyebrow {
+    font-size: 0.7rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .card {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .product-card .product-image {
+    height: 180px;
+    padding: 0.75rem;
+  }
+
+  .product-card img {
+    height: 180px;
+  }
+
+  .product-card {
+    padding: 0.85rem;
+  }
+
+  .product-price {
+    font-size: 1.2rem;
+  }
+
+  .navbar {
+    padding: 0.5rem 0;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .nav-links a {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .site-footer {
+    padding: 2rem 0;
+  }
+
+  .site-footer h3 {
+    font-size: 0.95rem;
+  }
+
+  .whatsapp-btn {
+    width: 44px;
+    height: 44px;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .page-card {
+    padding: 1.25rem;
+    border-radius: 1rem;
+  }
+
+  .contact-form {
+    padding: 1.25rem;
+  }
+
+  .catalog-toolbar {
+    flex-direction: column;
+  }
+
+  .catalog-toolbar input,
+  .catalog-toolbar select {
+    width: 100%;
+  }
+
+  .filter-buttons {
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .package-card {
+    padding: 1.25rem;
+  }
+
+  .package-price {
+    font-size: 1.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-card {
+    padding: 1.25rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem;
+  }
+
+  .pagination-controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .social-icons {
+    flex-wrap: wrap;
+  }
+
+  .map-placeholder {
+    min-height: 180px;
+  }
+
+  .contact-grid {
+    gap: 2rem;
+  }
+
+  h4 {
+    font-size: 0.95rem;
+  }
+
+  .buy-btn {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .join-btn {
+    padding: 0.8rem;
+    font-size: 0.9rem;
   }
 }
