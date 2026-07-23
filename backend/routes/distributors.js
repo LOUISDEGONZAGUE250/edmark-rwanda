@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { pool } = require('../db');
+const prisma = require('../lib/prisma');
 const { authenticate, requireAdmin } = require('../middleware/auth');
 
 const memoryApplications = [];
@@ -17,11 +17,17 @@ router.post('/', async (req, res) => {
   const { full_name, phone, email, district, message } = req.body;
   if (!full_name || !phone || !email || !district) return res.status(400).json({ error: 'full_name, phone, email and district required' });
   try {
-    const result = await pool.query(
-      'INSERT INTO distributors (full_name, phone, email, district, message, status) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',
-      [full_name, phone, email, district, message || null, 'pending']
-    );
-    res.status(201).json(serializeApplication(result.rows[0]));
+    const application = await prisma.distributor.create({
+      data: {
+        full_name,
+        phone,
+        email,
+        district,
+        message: message || null,
+        status: 'pending',
+      },
+    });
+    res.status(201).json(serializeApplication(application));
   } catch (err) {
     const application = {
       id: Math.floor(Date.now() / 1000),
@@ -40,11 +46,13 @@ router.post('/', async (req, res) => {
 
 router.get('/', authenticate, requireAdmin, async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM distributors ORDER BY created_at DESC');
-    res.json(result.rows.map(serializeApplication));
+    const applications = await prisma.distributor.findMany({
+      orderBy: { created_at: 'desc' },
+    });
+    return res.json(applications.map(serializeApplication));
   } catch (err) {
     console.error(err.message);
-    res.json(memoryApplications.slice().reverse().map(serializeApplication));
+    return res.json(memoryApplications.slice().reverse().map(serializeApplication));
   }
 });
 
@@ -53,23 +61,18 @@ router.put('/:id', authenticate, requireAdmin, async (req, res) => {
   const { status, application_status } = req.body;
   const normalizedStatus = status || application_status || 'pending';
   try {
-    const result = await pool.query(
-      'UPDATE distributors SET status = $1 WHERE id = $2 RETURNING *',
-      [normalizedStatus, id]
-    );
-    const updatedApplication = result.rows[0] || {
-      id,
-      status: normalizedStatus,
-      application_status: normalizedStatus,
-    };
-    res.json(serializeApplication(updatedApplication));
+    const application = await prisma.distributor.update({
+      where: { id: parseInt(id) },
+      data: { status: normalizedStatus },
+    });
+    return res.json(serializeApplication(application));
   } catch (err) {
     console.error(err.message);
     const application = memoryApplications.find((entry) => String(entry.id) === String(id));
     if (!application) return res.status(404).json({ error: 'Application not found' });
     application.status = normalizedStatus;
     application.application_status = normalizedStatus;
-    res.json(serializeApplication(application));
+    return res.json(serializeApplication(application));
   }
 });
 
