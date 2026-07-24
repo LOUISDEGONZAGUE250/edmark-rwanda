@@ -43,13 +43,13 @@
 
     <!-- Product Details Section -->
     <section class="section">
-      <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
+      <div class="container two-col">
         <!-- Product Image -->
         <div>
           <div id="productImage" style="width: 100%; height: 400px; background: #e6f3ff; border-radius: 1rem; display: grid; place-items: center; font-size: 5rem; margin-bottom: 1.5rem;">
             <i class="fas fa-hospital"></i>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem;">
             <div style="width: 100%; height: 80px; background: #f0f0f0; border-radius: 0.5rem; cursor: pointer;"></div>
             <div style="width: 100%; height: 80px; background: #f0f0f0; border-radius: 0.5rem; cursor: pointer;"></div>
             <div style="width: 100%; height: 80px; background: #f0f0f0; border-radius: 0.5rem; cursor: pointer;"></div>
@@ -89,8 +89,8 @@
           <div style="margin-bottom: 2rem;">
             <h3 style="margin-bottom: 1rem;">Payment Options</h3>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <a href="https://wa.me/250788991551" target="_blank" class="btn btn-secondary" style="flex: 1; min-width: 200px; text-align: center;"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
-              <button class="btn btn-primary" onclick="payWithMtn()" style="flex: 1; min-width: 200px; background: #FFCC00; color: #333; border: none;"><i class="fas fa-mobile-alt"></i> Pay with MTN Mobile Money</button>
+              <a href="https://wa.me/250788991551" target="_blank" class="btn btn-secondary" style="flex: 1; min-width: 0; text-align: center;"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
+              <button class="btn btn-primary" onclick="payWithMtn()" style="flex: 1; min-width: 0; background: #FFCC00; color: #333; border: none;"><i class="fas fa-mobile-alt"></i> Pay with MTN Mobile Money</button>
             </div>
             <div id="mtn-payment-section" style="display: none; margin-top: 1rem;">
               <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">MTN Phone Number</label>
@@ -119,7 +119,7 @@
     <!-- Detailed Description -->
     <section class="section alt-bg">
       <div class="container">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+        <div class="two-col" style="gap: 3rem;">
           <div>
             <h2 style="margin-bottom: 1rem;">Product Description</h2>
             <p id="productDescription" style="color: #666; line-height: 1.8;">Product description goes here. This section provides detailed information about the product, its uses, and how it can benefit you.</p>
@@ -136,7 +136,7 @@
     <section class="section">
       <div class="container">
         <h2 style="margin-bottom: 2rem;">Ingredients & Specifications</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+        <div class="two-col" style="gap: 3rem;">
           <div class="card info-panel">
             <h3>Key Ingredients</h3>
             <ul id="productIngredients" style="list-style: none; padding: 0; color: #666;">

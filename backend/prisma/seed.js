@@ -1,6 +1,14 @@
 require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
 const { PrismaClient } = require('@prisma/client');
-const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const { promisify } = require('util');
+const scryptAsync = promisify(crypto.scrypt);
+
+async function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const derivedKey = await scryptAsync(password, salt, 64);
+  return salt + ':' + derivedKey.toString('hex');
+}
 
 const prisma = new PrismaClient();
 
@@ -139,7 +147,7 @@ async function main() {
 
   const existingAdmin = await prisma.user.findUnique({ where: { id: 1 } });
   if (!existingAdmin) {
-    const hashedPassword = await bcrypt.hash(adminPwd, 10);
+    const hashedPassword = await hashPassword(adminPwd);
     await prisma.user.create({
       data: {
         full_name: 'Administrator',

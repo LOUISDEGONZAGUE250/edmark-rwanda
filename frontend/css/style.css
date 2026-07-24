@@ -10,10 +10,17 @@
   --muted: #666666;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -23,6 +30,9 @@ body {
   min-height: 100vh;
   background: #f8fbff;
   position: relative;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 body.page-surface {
@@ -49,7 +59,10 @@ body.page-surface main {
   color: var(--primary-blue);
 }
 
-.page-card input,
+.page-card input[type="text"],
+.page-card input[type="email"],
+.page-card input[type="password"],
+.page-card input[type="tel"],
 .page-card textarea,
 .page-card select {
   width: 100%;
@@ -58,10 +71,22 @@ body.page-surface main {
   padding: 0.85rem 1rem;
   margin-top: 0.4rem;
   background: #ffffff;
+  font: inherit;
+}
+
+.page-card input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+  accent-color: var(--primary-green);
 }
 
 .page-card button {
   margin-top: 0.35rem;
+}
+
+.page-card button[type="submit"] {
+  width: 100%;
+  margin-top: 0.5rem;
 }
 
 .page-card #loginMessage,
@@ -82,6 +107,7 @@ a {
 
 img {
   max-width: 100%;
+  height: auto;
   display: block;
 }
 
@@ -133,16 +159,18 @@ img {
 
 .nav-links {
   display: flex;
-  gap: 1.3rem;
+  gap: 0.6rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .nav-links a {
   color: var(--muted);
   font-weight: 600;
   transition: all 0.3s ease;
-  padding: 0.5rem 0.8rem;
+  padding: 0.5rem 0.6rem;
   border-radius: 0.5rem;
+  white-space: nowrap;
 }
 
 .nav-links a:hover,
@@ -171,7 +199,7 @@ img {
   padding: 5rem 0 4rem;
   background: #eef4ff;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .hero::before {
@@ -457,9 +485,23 @@ h2 {
   margin-top: 1rem;
 }
 
-.social-links a {
+.social-links a,
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.1rem;
   color: var(--gold-accent);
-  font-weight: 600;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover,
+.social-icons a:hover {
+  color: var(--white);
+  background: var(--gold-accent);
 }
 
 .map-placeholder {
@@ -511,7 +553,6 @@ h2 {
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
   transition: all 0.3s ease;
   background: #ffffff;
   border: 1px solid var(--border);
@@ -636,8 +677,9 @@ h2 {
 }
 
 .checkbox-row {
+  display: inline-flex;
   align-items: center;
-  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
 }
 
 .admin-list {
@@ -949,7 +991,54 @@ h2 {
   margin-bottom: 2rem;
 }
 
-/* Responsive improvements */
+/* ==============================
+   Responsive Breakpoints
+   ============================== */
+
+/* Tablet (840px and below) */
+@media (max-width: 840px) {
+  .hero-grid,
+  .two-col,
+  .features-grid,
+  .card-grid,
+  .footer-grid,
+  .contact-grid,
+  .section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-grid {
+    gap: 2rem;
+  }
+
+  .hero-visual {
+    min-height: 300px;
+    order: -1;
+  }
+
+  .package-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .nav-links {
+    gap: 0.4rem;
+  }
+
+  .nav-links a {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile (700px and below) */
 @media (max-width: 700px) {
   .menu-toggle {
     display: block;
@@ -963,8 +1052,23 @@ h2 {
     right: 0;
     background: var(--white);
     flex-direction: column;
+    flex-wrap: nowrap;
     padding: 1rem;
     border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    gap: 0;
+  }
+
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-links a:last-child {
+    border-bottom: none;
   }
 
   .nav-links.open {
@@ -973,115 +1077,7 @@ h2 {
 
   .hero,
   .page-hero {
-    padding-top: 3.5rem;
-  }
-
-  .hero-grid,
-  .section-grid,
-  .contact-grid,
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-visual {
-    min-height: 300px;
-    order: -1;
-  }
-
-  .package-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .whatsapp-btn {
-    width: 50px;
-    height: 50px;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    font-size: 1.5rem;
-  }
-
-  .card-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .product-card .product-image {
-    height: 220px;
-  }
-
-  .product-card img {
-    height: 220px;
-  }
-
-  .product-card {
-    padding: 1.2rem;
-  }
-}
-
-/* Mobile Optimization for Product Images */
-@media (max-width: 480px) {
-  .hero-image {
-    max-width: 100%;
-    border-radius: 1rem;
-  }
-
-  .hero-visual {
-    min-height: 250px;
-  }
-
-  .product-card .product-image {
-    height: 200px;
-    padding: 1rem;
-  }
-
-  .product-card img {
-    height: 200px;
-  }
-
-  .card-grid {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-  }
-
-  .product-card {
-    padding: 1rem;
-  }
-}
-
-/* Smallest phones (320px and below) */
-@media (max-width: 360px) {
-  .container {
-    width: calc(100% - 1rem);
-  }
-
-  .section {
-    padding: 2.5rem 0;
-  }
-
-  .hero,
-  .page-hero {
-    padding: 2.5rem 0 2rem;
-  }
-
-  h1 {
-    font-size: 1.6rem;
-  }
-
-  h2 {
-    font-size: 1.3rem;
-  }
-
-  h3 {
-    font-size: 1.1rem;
-  }
-
-  .eyebrow {
-    font-size: 0.7rem;
-  }
-
-  .btn {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
+    padding-top: 3rem;
   }
 
   .hero-actions {
@@ -1094,18 +1090,224 @@ h2 {
     text-align: center;
   }
 
-  .card {
-    padding: 1rem;
+  .whatsapp-btn {
+    width: 50px;
+    height: 50px;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .product-card .product-image,
+  .product-card img {
+    height: 220px;
+  }
+
+  .product-card {
+    padding: 1.2rem;
+  }
+
+  .contact-form {
+    padding: 1.5rem;
+  }
+
+  .page-card {
+    padding: 1.5rem;
+    border-radius: 1rem;
+  }
+}
+
+/* Small phones (480px and below) */
+@media (max-width: 480px) {
+  .container {
+    width: calc(100% - 1.5rem);
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .hero,
+  .page-hero {
+    padding: 2.5rem 0 2rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .hero-image {
+    max-width: 100%;
     border-radius: 1rem;
   }
 
-  .product-card .product-image {
-    height: 180px;
-    padding: 0.75rem;
+  .hero-visual {
+    min-height: 220px;
   }
 
+  .hero-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .product-card .product-image,
+  .product-card img {
+    height: 200px;
+    padding: 1rem;
+  }
+
+  .product-card {
+    padding: 1rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .card {
+    padding: 1.25rem;
+    border-radius: 1rem;
+  }
+
+  .contact-form {
+    padding: 1.25rem;
+    border-radius: 1rem;
+  }
+
+  .catalog-toolbar {
+    flex-direction: column;
+  }
+
+  .catalog-toolbar input,
+  .catalog-toolbar select {
+    width: 100%;
+  }
+
+  .filter-buttons {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .testimonial-card {
+    padding: 1.25rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem;
+  }
+
+  .pagination-controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .pagination-controls button {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .admin-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .social-icons {
+    flex-wrap: wrap;
+  }
+
+  .map-placeholder {
+    min-height: 180px;
+  }
+
+  .contact-grid {
+    gap: 2rem;
+  }
+
+  .package-card {
+    padding: 1.25rem;
+  }
+
+  .package-price {
+    font-size: 1.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Smallest phones (360px and below) */
+@media (max-width: 360px) {
+  .container {
+    width: calc(100% - 1rem);
+  }
+
+  .section {
+    padding: 2rem 0;
+  }
+
+  .hero,
+  .page-hero {
+    padding: 2rem 0 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  .eyebrow {
+    font-size: 0.7rem;
+  }
+
+  .btn {
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .card {
+    padding: 1rem;
+    border-radius: 0.8rem;
+  }
+
+  .product-card .product-image,
   .product-card img {
     height: 180px;
+    padding: 0.75rem;
   }
 
   .product-card {
@@ -1124,22 +1326,12 @@ h2 {
     height: 50px;
   }
 
-  .nav-links a {
-    padding: 0.4rem 0.5rem;
-    font-size: 0.85rem;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
   .site-footer {
     padding: 2rem 0;
   }
 
   .site-footer h3 {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .whatsapp-btn {
@@ -1152,81 +1344,34 @@ h2 {
 
   .page-card {
     padding: 1.25rem;
-    border-radius: 1rem;
+    border-radius: 0.8rem;
   }
 
   .contact-form {
-    padding: 1.25rem;
-  }
-
-  .catalog-toolbar {
-    flex-direction: column;
-  }
-
-  .catalog-toolbar input,
-  .catalog-toolbar select {
-    width: 100%;
-  }
-
-  .filter-buttons {
-    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: 0.8rem;
   }
 
   .filter-btn {
-    padding: 0.6rem 0.8rem;
-    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
   }
 
   .package-card {
-    padding: 1.25rem;
+    padding: 1rem;
+    border-radius: 1rem;
   }
 
   .package-price {
-    font-size: 1.5rem;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .admin-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr;
+    font-size: 1.3rem;
   }
 
   .testimonial-card {
-    padding: 1.25rem;
+    padding: 1rem;
   }
 
   .testimonial-text {
-    font-size: 0.9rem;
-  }
-
-  .pagination-controls {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .social-icons {
-    flex-wrap: wrap;
-  }
-
-  .map-placeholder {
-    min-height: 180px;
-  }
-
-  .contact-grid {
-    gap: 2rem;
-  }
-
-  h4 {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
 
   .buy-btn {

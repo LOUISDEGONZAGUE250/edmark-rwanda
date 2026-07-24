@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Login - Edmark Rwanda</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="page-surface">
@@ -31,8 +32,8 @@
         <form id="loginForm">
           <label>Email<br><input type="email" name="email" required></label>
           <label>Password<br><input type="password" name="password" id="loginPassword" required></label>
-          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.95rem; margin-top:-0.5rem;"><input type="checkbox" id="showLoginPassword"> Show password</label>
-          <label><input type="checkbox" name="remember"> Remember me</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.95rem; margin-top:-0.5rem; color: var(--muted); font-weight: 500;"><input type="checkbox" id="showLoginPassword"> Show password</label>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.95rem; margin-top:0.5rem; color: var(--muted); font-weight: 500;"><input type="checkbox" name="remember"> Remember me</label>
           <button type="submit" class="btn btn-primary">Login</button>
           <p id="loginMessage"></p>
         </form>
