@@ -100,6 +100,22 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
+// Home page transparent nav scroll effect
+(function() {
+  const header = document.querySelector('.site-header');
+  if (!header || !document.body.classList.contains('home-page')) return;
+
+  function updateHeader() {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+})();
+
 // Fade-in animation on scroll
 const observerOptions = {
   threshold: 0.1,

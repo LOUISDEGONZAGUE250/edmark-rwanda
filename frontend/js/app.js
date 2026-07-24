@@ -201,10 +201,10 @@ function renderProducts(products) {
 
   productsGrid.innerHTML = filtered.map(product => `
     <article class="card product-card" data-category="${product.category || 'all'}">
-      <img src="${product.image_url || 'images/logo.png'}" alt="${escapeHtml(product.name)}" class="product-image">
-      <p class="product-tagline">${escapeHtml(product.description || 'Premium product from Edmark Rwanda')}</p>
+      <img src="${product.image_url || 'images/logo.png'}" alt="${escapeHtml(product.name)}" class="product-image" loading="lazy">
+      <p class="product-tagline">${escapeHtml(product.tagline || product.description || 'Premium product from Edmark Rwanda')}</p>
       <h3>${escapeHtml(product.name)}</h3>
-      <p style="font-size: 0.95rem; color: #666;">${escapeHtml(product.category || '')}</p>
+      ${Array.isArray(product.benefits) && product.benefits.length ? '<ul class="product-benefits">' + product.benefits.slice(0, 3).map(b => '<li>' + escapeHtml(b) + '</li>').join('') + '</ul>' : ''}
       <div class="product-price">${formatPrice(product.price)} RWF</div>
       <div class="product-actions">
         <button class="buy-btn" onclick="addToCart(${product.id}, '${escapeJs(product.name)}', ${product.price})">Add to Cart</button>
@@ -291,7 +291,15 @@ async function loadProductDetails() {
     document.getElementById('productSize').textContent = product.size || 'Available now';
     document.getElementById('productPrice').textContent = `${formatPrice(product.price)} RWF`;
     document.getElementById('productDescription').textContent = product.description || 'Premium wellness support product.';
-    document.getElementById('productImage').innerHTML = `<img src="${product.image_url || 'images/logo.png'}" alt="${escapeHtml(product.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:1rem;">`;
+    document.getElementById('productImage').innerHTML = `<img src="${product.image_url || 'images/logo.png'}" alt="${escapeHtml(product.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">`;
+    if (typeof window !== 'undefined') window.currentProductImage = product.image_url || 'images/logo.png';
+    const thumbs = document.getElementById('productThumbnails');
+    if (thumbs && product.image_url) {
+      const img = product.image_url;
+      thumbs.querySelectorAll('.product-thumb').forEach((t, i) => {
+        t.innerHTML = `<img src="${img}" alt="Thumbnail ${i+1}" style="width:100%;height:100%;object-fit:cover;border-radius:0.3rem;">`;
+      });
+    }
     const benefitsList = document.getElementById('productBenefits');
     if (benefitsList && Array.isArray(product.benefits)) {
       benefitsList.innerHTML = product.benefits.map((benefit) => `<li>${escapeHtml(benefit)}</li>`).join('');
@@ -309,7 +317,15 @@ async function loadProductDetails() {
       document.getElementById('productSize').textContent = fallbackProduct.size || 'Available now';
       document.getElementById('productPrice').textContent = `${formatPrice(fallbackProduct.price)} RWF`;
       document.getElementById('productDescription').textContent = fallbackProduct.description || 'Premium wellness support product.';
-      document.getElementById('productImage').innerHTML = `<img src="${fallbackProduct.image_url || 'images/logo.png'}" alt="${escapeHtml(fallbackProduct.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:1rem;">`;
+      document.getElementById('productImage').innerHTML = `<img src="${fallbackProduct.image_url || 'images/logo.png'}" alt="${escapeHtml(fallbackProduct.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">`;
+      if (typeof window !== 'undefined') window.currentProductImage = fallbackProduct.image_url || 'images/logo.png';
+      const thumbs = document.getElementById('productThumbnails');
+      if (thumbs && fallbackProduct.image_url) {
+        const img = fallbackProduct.image_url;
+        thumbs.querySelectorAll('.product-thumb').forEach((t, i) => {
+          t.innerHTML = `<img src="${img}" alt="Thumbnail ${i+1}" style="width:100%;height:100%;object-fit:cover;border-radius:0.3rem;">`;
+        });
+      }
       const benefitsList = document.getElementById('productBenefits');
       if (benefitsList && Array.isArray(fallbackProduct.benefits)) {
         benefitsList.innerHTML = fallbackProduct.benefits.map((benefit) => `<li>${escapeHtml(benefit)}</li>`).join('');
