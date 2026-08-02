@@ -1,4 +1,4 @@
-const fallbackProducts = [
+﻿const fallbackProducts = [
   {
     id: 1,
     name: 'Splina Liquid Chlorophyll',
@@ -18,7 +18,7 @@ const fallbackProducts = [
     name: 'Shake Off',
     description: 'A fiber-rich cleansing drink that detoxifies your system and helps you feel full, naturally.',
     tagline: 'Detoxify. Cleanse. Feel Amazing in Just 8 Hours.',
-    benefits: ['Fast and effective — see results in just eight hours.', 'Comes in two delicious flavors — Pandan and Lemon.', 'Keeps the digestive tract clean, healthy and feeling of fullness.', 'Absorbs fat and facilitates metabolism.'],
+    benefits: ['Fast and effective â€” see results in just eight hours.', 'Comes in two delicious flavors â€” Pandan and Lemon.', 'Keeps the digestive tract clean, healthy and feeling of fullness.', 'Absorbs fat and facilitates metabolism.'],
     ingredients: ['Dietary fiber blend', 'Natural botanical extracts', 'Pandan and Lemon flavors'],
     size: '12 sachets',
     price: 57000,
@@ -32,7 +32,7 @@ const fallbackProducts = [
     name: 'MRT Complex',
     description: 'A delicious, low-calorie meal replacement loaded with complete vitamins, proteins, and energy-releasing amino acids.',
     tagline: 'Burn Fat. Cut Calories. No Hunger Pangs.',
-    benefits: ['Replaces your meal to help you cut calories safely and effectively.', 'Loaded with complete vitamins, proteins, and energy-releasing amino acids.', 'Delicious, highly soluble and low in calories.', 'Comes in three delicious flavors — chocolate, vanilla, and strawberry.'],
+    benefits: ['Replaces your meal to help you cut calories safely and effectively.', 'Loaded with complete vitamins, proteins, and energy-releasing amino acids.', 'Delicious, highly soluble and low in calories.', 'Comes in three delicious flavors â€” chocolate, vanilla, and strawberry.'],
     ingredients: ['Vitamins and minerals', 'Protein blend', 'Energy-releasing amino acids'],
     size: 'Chocolate / Vanilla / Strawberry',
     price: 123500,
@@ -73,8 +73,8 @@ const fallbackProducts = [
     id: 6,
     name: 'Bio-Elixir',
     description: 'An all-natural HGH releaser made from excellent quality soy protein and amino acids that helps you look young, feel young, and be young.',
-    tagline: 'Reverse Aging Naturally. 100% Natural · Zero Side Effects.',
-    benefits: ['Helps you look young, feel young, and be young.', '100% natural — not a steroid or drug; tested and proven safe to consume.', 'Targets problem areas through gastric absorption into the bloodstream.', 'Rich in amino acids, glutamine, and Vitamin B5.'],
+    tagline: 'Reverse Aging Naturally. 100% Natural Â· Zero Side Effects.',
+    benefits: ['Helps you look young, feel young, and be young.', '100% natural â€” not a steroid or drug; tested and proven safe to consume.', 'Targets problem areas through gastric absorption into the bloodstream.', 'Rich in amino acids, glutamine, and Vitamin B5.'],
     ingredients: ['Soy protein', 'Amino acids', 'Glutamine', 'Vitamin B5'],
     size: 'Practical sachets',
     price: 121000,
@@ -86,7 +86,7 @@ const fallbackProducts = [
   {
     id: 7,
     name: 'Bubble C',
-    description: 'A refreshing instant orange beverage loaded with natural Vitamin C and Calcium — every glass is equivalent to three fresh oranges!',
+    description: 'A refreshing instant orange beverage loaded with natural Vitamin C and Calcium â€” every glass is equivalent to three fresh oranges!',
     tagline: 'Refresh. Energize. Burst into Bubbly Fun.',
     benefits: ['Every glass is loaded with Vitamin C equivalent to that of three fresh oranges.', 'Fortified with Calcium to energize the body and build bones, teeth and muscles.', 'Made from natural spray-dried orange juice concentrate.', 'Sweetened by natural fructose which does not raise blood sugar levels.'],
     ingredients: ['Natural spray-dried orange juice concentrate', 'Vitamin C', 'Calcium', 'Natural fructose', 'Carotene'],
@@ -114,9 +114,9 @@ const fallbackProducts = [
   {
     id: 9,
     name: 'Beauty Pack',
-    description: 'The complete 3-step beauty program — Reverse Aging, Tightening and Strengthening.',
+    description: 'The complete 3-step beauty program â€” Reverse Aging, Tightening and Strengthening.',
     tagline: 'The Complete 3-Step Beauty Program.',
-    benefits: ['Step 1 — Reverse Aging with Bio-Elixir.', 'Step 2 — Tightening with CoCollagen.', 'Step 3 — Strengthening with Bubble C.', 'Products designed to work together for total beauty from within.'],
+    benefits: ['Step 1 â€” Reverse Aging with Bio-Elixir.', 'Step 2 â€” Tightening with CoCollagen.', 'Step 3 â€” Strengthening with Bubble C.', 'Products designed to work together for total beauty from within.'],
     ingredients: ['Bio-Elixir', 'CoCollagen', 'Bubble C'],
     size: 'Complete beauty program',
     price: 300900,
@@ -201,7 +201,7 @@ function renderProducts(products) {
 
   productsGrid.innerHTML = filtered.map(product => `
     <article class="card product-card" data-category="${product.category || 'all'}">
-      <img src="${product.image_url || 'images/logo.svg'}" alt="${escapeHtml(product.name)}" class="product-image" loading="lazy">
+      <img src="${product.image_url || 'images/logo.jpeg'}" alt="${escapeHtml(product.name)}" class="product-image" loading="lazy">
       <p class="product-tagline">${escapeHtml(product.tagline || product.description || 'Premium product from Edmark Rwanda')}</p>
       <h3>${escapeHtml(product.name)}</h3>
       ${Array.isArray(product.benefits) && product.benefits.length ? '<ul class="product-benefits">' + product.benefits.slice(0, 3).map(b => '<li>' + escapeHtml(b) + '</li>').join('') + '</ul>' : ''}
@@ -291,8 +291,8 @@ async function loadProductDetails() {
     document.getElementById('productSize').textContent = product.size || 'Available now';
     document.getElementById('productPrice').textContent = `${formatPrice(product.price)} RWF`;
     document.getElementById('productDescription').textContent = product.description || 'Premium wellness support product.';
-    document.getElementById('productImage').innerHTML = `<img src="${product.image_url || 'images/logo.svg'}" alt="${escapeHtml(product.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">`;
-    if (typeof window !== 'undefined') window.currentProductImage = product.image_url || 'images/logo.svg';
+    document.getElementById('productImage').innerHTML = `<img src="${product.image_url || 'images/logo.jpeg'}" alt="${escapeHtml(product.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">`;
+    if (typeof window !== 'undefined') window.currentProductImage = product.image_url || 'images/logo.jpeg';
     const thumbs = document.getElementById('productThumbnails');
     if (thumbs && product.image_url) {
       const img = product.image_url;
@@ -317,8 +317,8 @@ async function loadProductDetails() {
       document.getElementById('productSize').textContent = fallbackProduct.size || 'Available now';
       document.getElementById('productPrice').textContent = `${formatPrice(fallbackProduct.price)} RWF`;
       document.getElementById('productDescription').textContent = fallbackProduct.description || 'Premium wellness support product.';
-      document.getElementById('productImage').innerHTML = `<img src="${fallbackProduct.image_url || 'images/logo.svg'}" alt="${escapeHtml(fallbackProduct.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">`;
-      if (typeof window !== 'undefined') window.currentProductImage = fallbackProduct.image_url || 'images/logo.svg';
+      document.getElementById('productImage').innerHTML = `<img src="${fallbackProduct.image_url || 'images/logo.jpeg'}" alt="${escapeHtml(fallbackProduct.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">`;
+      if (typeof window !== 'undefined') window.currentProductImage = fallbackProduct.image_url || 'images/logo.jpeg';
       const thumbs = document.getElementById('productThumbnails');
       if (thumbs && fallbackProduct.image_url) {
         const img = fallbackProduct.image_url;
@@ -401,7 +401,7 @@ async function loadCustomerDashboard() {
           <h2>${escapeHtml(displayName)}</h2>
           <p class="profile-meta"><i class="fas fa-check-circle"></i> ${escapeHtml(user.role || 'Customer')} account</p>
           <ul class="profile-list">
-            <li><i class="fas fa-envelope"></i> ${escapeHtml(user.email || '—')}</li>
+            <li><i class="fas fa-envelope"></i> ${escapeHtml(user.email || 'â€”')}</li>
             <li><i class="fas fa-phone-alt"></i> ${escapeHtml(user.phone || '+250 788 991 551')}</li>
             ${joinedAt ? `<li><i class="fas fa-calendar-check"></i> Member since ${joinedAt}</li>` : ''}
           </ul>
