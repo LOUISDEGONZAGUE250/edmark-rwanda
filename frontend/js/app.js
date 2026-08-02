@@ -201,7 +201,7 @@ function renderProducts(products) {
 
   productsGrid.innerHTML = filtered.map(product => `
     <article class="card product-card" data-category="${product.category || 'all'}">
-      <img src="${product.image_url || 'images/logo.png'}" alt="${escapeHtml(product.name)}" class="product-image" loading="lazy">
+      <img src="${product.image_url || 'images/logo.svg'}" alt="${escapeHtml(product.name)}" class="product-image" loading="lazy">
       <p class="product-tagline">${escapeHtml(product.tagline || product.description || 'Premium product from Edmark Rwanda')}</p>
       <h3>${escapeHtml(product.name)}</h3>
       ${Array.isArray(product.benefits) && product.benefits.length ? '<ul class="product-benefits">' + product.benefits.slice(0, 3).map(b => '<li>' + escapeHtml(b) + '</li>').join('') + '</ul>' : ''}
@@ -291,8 +291,8 @@ async function loadProductDetails() {
     document.getElementById('productSize').textContent = product.size || 'Available now';
     document.getElementById('productPrice').textContent = `${formatPrice(product.price)} RWF`;
     document.getElementById('productDescription').textContent = product.description || 'Premium wellness support product.';
-    document.getElementById('productImage').innerHTML = `<img src="${product.image_url || 'images/logo.png'}" alt="${escapeHtml(product.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">`;
-    if (typeof window !== 'undefined') window.currentProductImage = product.image_url || 'images/logo.png';
+    document.getElementById('productImage').innerHTML = `<img src="${product.image_url || 'images/logo.svg'}" alt="${escapeHtml(product.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">`;
+    if (typeof window !== 'undefined') window.currentProductImage = product.image_url || 'images/logo.svg';
     const thumbs = document.getElementById('productThumbnails');
     if (thumbs && product.image_url) {
       const img = product.image_url;
@@ -317,8 +317,8 @@ async function loadProductDetails() {
       document.getElementById('productSize').textContent = fallbackProduct.size || 'Available now';
       document.getElementById('productPrice').textContent = `${formatPrice(fallbackProduct.price)} RWF`;
       document.getElementById('productDescription').textContent = fallbackProduct.description || 'Premium wellness support product.';
-      document.getElementById('productImage').innerHTML = `<img src="${fallbackProduct.image_url || 'images/logo.png'}" alt="${escapeHtml(fallbackProduct.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">`;
-      if (typeof window !== 'undefined') window.currentProductImage = fallbackProduct.image_url || 'images/logo.png';
+      document.getElementById('productImage').innerHTML = `<img src="${fallbackProduct.image_url || 'images/logo.svg'}" alt="${escapeHtml(fallbackProduct.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">`;
+      if (typeof window !== 'undefined') window.currentProductImage = fallbackProduct.image_url || 'images/logo.svg';
       const thumbs = document.getElementById('productThumbnails');
       if (thumbs && fallbackProduct.image_url) {
         const img = fallbackProduct.image_url;
