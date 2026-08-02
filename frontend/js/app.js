@@ -591,27 +591,70 @@ function addToCart(productId, productName, price) {
   renderCart();
 }
 
+function updateQuantity(productId, delta) {
+  const item = cart.find((i) => Number(i.product_id) === Number(productId));
+  if (!item) return;
+  item.quantity += delta;
+  if (item.quantity <= 0) {
+    removeFromCart(productId);
+    return;
+  }
+  renderCart();
+}
+
+function removeFromCart(productId) {
+  const index = cart.findIndex((i) => Number(i.product_id) === Number(productId));
+  if (index !== -1) cart.splice(index, 1);
+  renderCart();
+}
+
 function renderCart() {
   const cartItems = document.getElementById('cart-items');
   const cartTotal = document.getElementById('cart-total');
   const cartEmpty = document.getElementById('cart-empty');
+  const cartSummary = document.getElementById('cartSummary');
 
   if (!cartItems || !cartTotal || !cartEmpty) return;
 
   if (cart.length === 0) {
     cartItems.innerHTML = '';
-    cartEmpty.style.display = 'block';
-    cartTotal.textContent = '0 RWF';
+    cartEmpty.style.display = 'flex';
+    if (cartSummary) cartSummary.style.display = 'none';
+    cartTotal.textContent = '0';
     return;
   }
 
   cartEmpty.style.display = 'none';
+  if (cartSummary) cartSummary.style.display = 'flex';
   cartItems.innerHTML = cart.map(item => `
-    <li>${escapeHtml(item.product_name)} x ${item.quantity} - ${formatPrice(item.unit_price * item.quantity)} RWF</li>
+    <li class="cart-item">
+      <div class="cart-item-info">
+        <span class="cart-item-name">${escapeHtml(item.product_name)}</span>
+        <span class="cart-item-unit">${formatPrice(item.unit_price)} RWF each</span>
+      </div>
+      <div class="cart-item-controls">
+        <div class="cart-qty">
+          <button type="button" class="cart-qty-btn" data-action="decrement" data-id="${item.product_id}" aria-label="Decrease quantity"><i class="fas fa-minus"></i></button>
+          <span class="cart-qty-value">${item.quantity}</span>
+          <button type="button" class="cart-qty-btn" data-action="increment" data-id="${item.product_id}" aria-label="Increase quantity"><i class="fas fa-plus"></i></button>
+        </div>
+        <span class="cart-item-total">${formatPrice(item.unit_price * item.quantity)} RWF</span>
+        <button type="button" class="cart-item-remove" data-action="remove" data-id="${item.product_id}" aria-label="Remove item"><i class="fas fa-trash-alt"></i></button>
+      </div>
+    </li>
   `).join('');
 
   const total = cart.reduce((sum, item) => sum + item.unit_price * item.quantity, 0);
-  cartTotal.textContent = `${formatPrice(total)} RWF`;
+  cartTotal.textContent = `${formatPrice(total)}`;
+
+  cartItems.querySelectorAll('button[data-action]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      if (btn.dataset.action === 'increment') updateQuantity(id, 1);
+      if (btn.dataset.action === 'decrement') updateQuantity(id, -1);
+      if (btn.dataset.action === 'remove') removeFromCart(id);
+    });
+  });
 }
 
 async function placeOrder() {

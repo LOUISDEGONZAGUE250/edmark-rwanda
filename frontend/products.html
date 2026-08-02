@@ -77,33 +77,51 @@
 
     <section class="section">
       <div class="container">
-        <div class="card cart-panel">
-          <h2>Your Cart</h2>
-          <div id="cartState">
-            <p id="cart-empty">Your cart is empty.</p>
-            <ul id="cart-items"></ul>
-            <div class="cart-summary">
-              <strong>Total:</strong> <span id="cart-total">0</span> RWF
+        <div class="cart-panel">
+          <div class="cart-layout">
+            <div class="cart-items-panel">
+              <div class="section-heading">
+                <p class="eyebrow">Shopping Bag</p>
+                <h2>Your Cart</h2>
+              </div>
+              <div id="cartState">
+                <div id="cart-empty" class="cart-empty">
+                  <i class="fas fa-shopping-cart"></i>
+                  <p>Your cart is empty.</p>
+                  <a href="products.html" class="btn btn-secondary">Browse Products</a>
+                </div>
+                <ul id="cart-items"></ul>
+                <div class="cart-summary" id="cartSummary">
+                  <span class="cart-summary-label">Order Total</span>
+                  <strong class="cart-summary-total"><span id="cart-total">0</span> RWF</strong>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="checkout-form">
-            <label for="customer-name">Name</label>
-            <input id="customer-name" type="text" placeholder="Your name" />
-            <label for="customer-email">Email</label>
-            <input id="customer-email" type="email" placeholder="you@example.com" />
-            <label for="payment-method">Payment Method</label>
-            <select id="payment-method">
-              <option value="cash">Cash on Delivery</option>
-              <option value="mtn">MTN Mobile Money</option>
-            </select>
-            <div id="mtn-phone-section" style="display: none;">
-              <label for="mtn-phone">MTN Phone Number</label>
-              <input id="mtn-phone" type="tel" placeholder="078XXXXXXX" />
+            <div class="cart-checkout-panel">
+              <div class="section-heading">
+                <p class="eyebrow">Checkout</p>
+                <h2>Order Details</h2>
+              </div>
+              <div class="checkout-form">
+                <label for="customer-name">Name</label>
+                <input id="customer-name" type="text" placeholder="Your name" />
+                <label for="customer-email">Email</label>
+                <input id="customer-email" type="email" placeholder="you@example.com" />
+                <label for="payment-method">Payment Method</label>
+                <select id="payment-method">
+                  <option value="cash">Cash on Delivery</option>
+                  <option value="mtn">MTN Mobile Money</option>
+                </select>
+                <div id="mtn-phone-section" style="display: none;">
+                  <label for="mtn-phone">MTN Phone Number</label>
+                  <input id="mtn-phone" type="tel" placeholder="078XXXXXXX" />
+                </div>
+                <button id="checkout-button" class="btn btn-primary">Place Order <i class="fas fa-arrow-right"></i></button>
+                <div id="payment-status" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 0.5rem;"></div>
+                <p id="cart-message" class="cart-message"></p>
+              </div>
             </div>
-            <button id="checkout-button" class="btn btn-primary">Place Order</button>
-            <div id="payment-status" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 0.5rem;"></div>
-            <p id="cart-message" class="cart-message"></p>
           </div>
         </div>
       </div>
