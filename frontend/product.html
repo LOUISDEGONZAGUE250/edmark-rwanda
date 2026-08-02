@@ -10,7 +10,7 @@
   <meta property="og:type" content="product" />
   <meta property="og:url" content="https://edmarkrwanda.com/product.html" />
   <title>Product Details | Edmark Rwanda</title>
-  <link rel="icon" href="images/logo.png" type="image/png" />
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -22,7 +22,7 @@
   <header class="site-header">
     <div class="container navbar">
       <a class="brand" href="index.html">
-        <img src="images/logo.png" alt="Edmark Rwanda Logo" class="logo">
+        <img src="images/logo.svg" alt="Edmark Rwanda Logo" class="logo">
       </a>
       <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle">
         <span></span><span></span><span></span>
@@ -55,9 +55,9 @@
             <i class="fas fa-hospital"></i>
           </div>
           <div id="productThumbnails" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem;">
-            <div class="product-thumb active" onclick="changeMainImage(this)" style="width: 100%; height: 80px; background: #f0f7ff; border-radius: 0.5rem; cursor: pointer; border: 2px solid var(--primary-green); display: grid; place-items: center; overflow: hidden;"><i class="fas fa-image" style="color: var(--primary-green);"></i></div>
-            <div class="product-thumb" onclick="changeMainImage(this)" style="width: 100%; height: 80px; background: #f0f7ff; border-radius: 0.5rem; cursor: pointer; border: 2px solid transparent; display: grid; place-items: center; overflow: hidden;"><i class="fas fa-image" style="color: var(--primary-blue);"></i></div>
-            <div class="product-thumb" onclick="changeMainImage(this)" style="width: 100%; height: 80px; background: #f0f7ff; border-radius: 0.5rem; cursor: pointer; border: 2px solid transparent; display: grid; place-items: center; overflow: hidden;"><i class="fas fa-image" style="color: var(--primary-blue);"></i></div>
+            <div class="product-thumb active" onclick="changeMainImage(this)" style="width: 100%; height: 80px; background: #f0f7ff; border-radius: 0.5rem; cursor: pointer; border: 2px solid var(--primary-red); display: grid; place-items: center; overflow: hidden;"><i class="fas fa-image" style="color: var(--primary-red);"></i></div>
+            <div class="product-thumb" onclick="changeMainImage(this)" style="width: 100%; height: 80px; background: #f0f7ff; border-radius: 0.5rem; cursor: pointer; border: 2px solid transparent; display: grid; place-items: center; overflow: hidden;"><i class="fas fa-image" style="color: var(--primary-navy);"></i></div>
+            <div class="product-thumb" onclick="changeMainImage(this)" style="width: 100%; height: 80px; background: #f0f7ff; border-radius: 0.5rem; cursor: pointer; border: 2px solid transparent; display: grid; place-items: center; overflow: hidden;"><i class="fas fa-image" style="color: var(--primary-navy);"></i></div>
           </div>
         </div>
 
@@ -76,7 +76,7 @@
           <!-- Price -->
           <div style="background: #f5f5f5; padding: 1.5rem; border-radius: 0.8rem; margin-bottom: 1.5rem;">
             <p style="color: #666; margin-bottom: 0.5rem;">Price</p>
-            <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.5rem;" id="productPrice">57,000 RWF</div>
+            <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary-red); margin-bottom: 0.5rem;" id="productPrice">57,000 RWF</div>
             <p style="color: #999; font-size: 0.9rem;">Inclusive of all taxes</p>
           </div>
 
@@ -145,9 +145,9 @@
           <div class="card info-panel">
             <h3>Key Ingredients</h3>
             <ul id="productIngredients" style="list-style: none; padding: 0; color: #666;">
-              <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-green);"></i> Ingredient 1</li>
-              <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-green);"></i> Ingredient 2</li>
-              <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-green);"></i> Ingredient 3</li>
+              <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-red);"></i> Ingredient 1</li>
+              <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-red);"></i> Ingredient 2</li>
+              <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="margin-right: 0.5rem; color: var(--primary-red);"></i> Ingredient 3</li>
             </ul>
           </div>
           <div class="card info-panel">
@@ -173,24 +173,24 @@
         <div class="card-grid">
           <article class="card product-card">
             <img src="images/bio-elixir.png" alt="Bio-Elixir" class="product-image">
-            <p class="product-tagline">Wellness</p>
+            <p class="product-tagline">Reverse Aging Naturally</p>
             <h3>Bio-Elixir</h3>
-            <div class="product-price">85,000 RWF</div>
-            <button class="buy-btn">View Details</button>
+            <div class="product-price">121,000 RWF</div>
+            <a class="buy-btn" href="product.html?id=6">View Details</a>
           </article>
           <article class="card product-card">
             <img src="images/cocollagen.png" alt="Cocollagen" class="product-image">
-            <p class="product-tagline">Weight Management</p>
+            <p class="product-tagline">Tighten. Lift. Revive.</p>
             <h3>Cocollagen</h3>
-            <div class="product-price">91,000 RWF</div>
-            <button class="buy-btn">View Details</button>
+            <div class="product-price">35,100 RWF</div>
+            <a class="buy-btn" href="product.html?id=8">View Details</a>
           </article>
           <article class="card product-card">
-            <img src="images/red-coffee.png" alt="Red Coffee" class="product-image">
-            <p class="product-tagline">Nutrition</p>
-            <h3>Red Coffee</h3>
+            <img src="images/red-coffee.png" alt="Red Yeast Coffee" class="product-image">
+            <p class="product-tagline">Rejuvenate Your Heart, Body and Mind</p>
+            <h3>Red Yeast Coffee</h3>
             <div class="product-price">20,200 RWF</div>
-            <button class="buy-btn">View Details</button>
+            <a class="buy-btn" href="product.html?id=4">View Details</a>
           </article>
         </div>
       </div>
@@ -224,7 +224,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="section" style="background: var(--primary-blue); color: var(--white);">
+    <section class="section" style="background: var(--primary-navy); color: var(--white);">
       <div class="container" style="text-align: center;">
         <h2 style="color: var(--white); margin-bottom: 1rem;">Ready to Order?</h2>
         <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; font-size: 1.1rem;">Get this product today and start your wellness journey</p>
@@ -290,7 +290,7 @@
       const mainImage = document.getElementById('productImage');
       if (!mainImage || !currentProductImage) return;
       document.querySelectorAll('.product-thumb').forEach(t => t.style.borderColor = 'transparent');
-      thumb.style.borderColor = 'var(--primary-green)';
+      thumb.style.borderColor = 'var(--primary-red)';
       mainImage.innerHTML = '<img src="' + currentProductImage + '" alt="Product" style="width:100%;height:100%;object-fit:contain;border-radius:1rem;">';
     }
 
@@ -326,7 +326,7 @@
       }
 
       if (statusDiv) {
-        statusDiv.innerHTML = '<p style="color: #0B2D73;"><i class="fas fa-spinner fa-spin"></i> Creating order and initiating payment...</p>';
+          statusDiv.innerHTML = '<p style="color: #040059;"><i class="fas fa-spinner fa-spin"></i> Creating order and initiating payment...</p>';
       }
 
       try {
@@ -367,7 +367,7 @@
         if (!payResponse.ok) throw new Error(payData.error || 'Payment initiation failed');
 
         if (statusDiv) {
-          statusDiv.innerHTML = '<p style="color: #1E8E3E;"><i class="fas fa-check-circle"></i> Payment request sent! Check your phone to complete. Order #' + orderData.orderId + '</p>';
+          statusDiv.innerHTML = '<p style="color: #E2231A;"><i class="fas fa-check-circle"></i> Payment request sent! Check your phone to complete. Order #' + orderData.orderId + '</p>';
         }
       } catch (error) {
         if (statusDiv) {
