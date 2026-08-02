@@ -3,26 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Customer Dashboard | Edmark Rwanda</title>
+  <title>My Account | Edmark Rwanda</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="page-surface dashboard-shell">
   <header class="site-header">
     <div class="container navbar">
       <a class="brand" href="index.html"><img src="images/logo.svg" alt="Edmark Rwanda Logo" class="logo"></a>
-      <nav class="nav-links">
+      <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle"><span></span><span></span><span></span></button>
+      <nav class="nav-links" id="navLinks">
         <a href="index.html">Home</a>
         <a href="products.html">Products</a>
-        <a href="customer-dashboard.html" class="active">Dashboard</a>
-        <a href="#" id="logoutButton">Logout</a>
       </nav>
     </div>
   </header>
 
-  <main class="section">
-    <div class="container">
-      <div id="dashboardContent" class="page-card"></div>
-    </div>
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">My Account</p>
+        <h1>Welcome to your Edmark Rwanda account</h1>
+        <p>Review your profile, track orders, and get in touch with our team.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="dashboardContent" class="page-card"></div>
+      </div>
+    </section>
   </main>
 
   <script src="js/script.js"></script>

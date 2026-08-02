@@ -25,17 +25,24 @@ function handleLogout(event) {
   window.location.href = 'index.html';
 }
 
+const PRODUCT_LINKS = [
+  { label: 'View All Products', href: 'products.html', page: 'products.html' },
+  { label: 'P4 Healthy Slimming Programme', href: 'p4-healthy-slimming-programme.html', page: 'p4-healthy-slimming-programme.html' },
+  { label: 'Beauty Pack', href: 'beauty-pack.html', page: 'beauty-pack.html' },
+  { label: 'Lifestyle Beverages', href: 'lifestyle-beverages.html', page: 'lifestyle-beverages.html' },
+  { label: 'Healthcare & Wellness', href: 'healthcare-wellness.html', page: 'healthcare-wellness.html' }
+];
+
 function buildNavigation() {
   const navs = document.querySelectorAll('.nav-links');
   if (!navs.length) return;
 
   const currentPage = getCurrentPage().toLowerCase();
-  const user = getUserProfile();
-  const loggedIn = isUserLoggedIn();
+  const productsActive = currentPage === 'product.html' || PRODUCT_LINKS.some((link) => link.page.toLowerCase() === currentPage);
 
   const links = [
     { label: 'Home', href: 'index.html', page: 'index.html' },
-    { label: 'Products', href: 'products.html', page: 'products.html' },
+    { dropdown: true, label: 'Our Products', active: productsActive },
     { label: 'Business', href: 'business-opportunity.html', page: 'business-opportunity.html' },
     { label: 'Become Distributor', href: 'distributor.html', page: 'distributor.html' },
     { label: 'About', href: 'about.html', page: 'about.html' },
@@ -43,38 +50,102 @@ function buildNavigation() {
     { label: 'Contact', href: 'contact.html', page: 'contact.html' }
   ];
 
-  if (loggedIn) {
-    const dashboardPage = user?.role === 'admin' ? 'admin.html' : 'customer-dashboard.html';
-    const dashboardLabel = user?.role === 'admin' ? 'Admin' : 'Dashboard';
-    links.push({ label: dashboardLabel, href: dashboardPage, page: dashboardPage });
-    links.push({ label: 'Logout', href: '#', action: 'logout' });
-  } else {
-    links.push({ label: 'Login', href: 'login.html', page: 'login.html' });
-    links.push({ label: 'Register', href: 'register.html', page: 'register.html' });
-  }
-
   navs.forEach((nav) => {
     nav.innerHTML = links.map((link) => {
+      if (link.dropdown) {
+        const activeClass = link.active ? 'active' : '';
+        const dropdownLinks = PRODUCT_LINKS.map((item) => {
+          const isActive = item.page && currentPage === item.page.toLowerCase();
+          return `<a href="${item.href}" class="${isActive ? 'active' : ''}">${item.label}</a>`;
+        }).join('');
+        return `
+          <div class="dropdown">
+            <a href="products.html" class="drop-btn ${activeClass}">${link.label} <i class="fas fa-chevron-down caret"></i></a>
+            <div class="dropdown-content">${dropdownLinks}</div>
+          </div>`;
+      }
       const isActive = link.page && currentPage === link.page.toLowerCase();
       const activeClass = isActive ? 'active' : '';
-      if (link.action === 'logout') {
-        return `<a href="#" class="${activeClass}" data-action="logout" style="color:#c0392b; font-weight:600;">${link.label}</a>`;
-      }
       return `<a href="${link.href}" class="${activeClass}">${link.label}</a>`;
     }).join('');
 
     nav.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', (event) => {
-        if (link.dataset.action === 'logout') {
-          handleLogout(event);
-          return;
-        }
         if (nav.classList.contains('open')) {
           nav.classList.remove('open');
         }
       });
     });
   });
+}
+
+function injectTopBar() {
+  if (document.querySelector('.topbar')) return;
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+
+  const user = getUserProfile();
+  const loggedIn = isUserLoggedIn();
+
+  let actions = '';
+  if (loggedIn) {
+    const isAdmin = user?.role === 'admin';
+    const dashLabel = isAdmin ? 'Admin Dashboard' : 'My Account';
+    const dashHref = isAdmin ? 'admin.html' : 'customer-dashboard.html';
+    actions += `<a href="${dashHref}"><i class="fas fa-user-circle"></i> ${dashLabel}</a>`;
+    actions += `<span class="topbar-divider"></span><a href="#" data-action="logout" class="topbar-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>`;
+  } else {
+    actions += `<a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>`;
+    actions += `<span class="topbar-divider"></span><a href="register.html"><i class="fas fa-user-plus"></i> Register</a>`;
+  }
+  actions += `<span class="topbar-divider"></span><a href="products.html" class="topbar-cta"><i class="fas fa-shopping-bag"></i> Shop</a>`;
+
+  const topbar = document.createElement('div');
+  topbar.className = 'topbar';
+  topbar.innerHTML = `
+    <div class="container topbar-inner">
+      <span class="topbar-tagline">
+        <span><i class="fas fa-phone-alt"></i> +250 788 991 551</span>
+        <span><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</span>
+        <span><i class="fas fa-truck"></i> Nationwide delivery</span>
+      </span>
+      <div class="topbar-actions">${actions}</div>
+    </div>`;
+  document.body.insertBefore(topbar, header);
+
+  const logoutLink = topbar.querySelector('[data-action="logout"]');
+  if (logoutLink) logoutLink.addEventListener('click', (event) => handleLogout(event));
+}
+
+function injectFooterNewsletter() {
+  const footer = document.querySelector('.site-footer');
+  if (!footer || footer.dataset.newsletter) return;
+  const container = footer.querySelector('.container');
+  if (!container) return;
+
+  const box = document.createElement('div');
+  box.className = 'footer-newsletter';
+  box.innerHTML = `
+    <div class="footer-newsletter-text">
+      <h3>Stay in the loop</h3>
+      <p>Get exclusive offers, new arrivals, and health tips from Edmark Rwanda.</p>
+    </div>
+    <form class="newsletter-form">
+      <input type="email" required placeholder="Your email address" aria-label="Email address">
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>`;
+
+  const form = box.querySelector('.newsletter-form');
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const button = form.querySelector('button');
+    button.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+    button.disabled = true;
+    form.querySelector('input').value = '';
+  });
+
+  container.prepend(box);
+  footer.dataset.newsletter = '1';
 }
 
 // Mobile navigation toggle
@@ -87,7 +158,9 @@ if (menuToggle && navLinks) {
   });
 }
 
+injectTopBar();
 buildNavigation();
+injectFooterNewsletter();
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

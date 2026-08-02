@@ -346,33 +346,107 @@ async function loadCustomerDashboard() {
   const user = JSON.parse(localStorage.getItem('user') || 'null');
   const token = localStorage.getItem('token') || sessionStorage.getItem('token');
   if (!user || !token) {
-    container.innerHTML = '<div class="error-message">Please log in to view your dashboard.</div>';
+    container.innerHTML = '<div class="error-message">Please log in to view your dashboard. <a href="login.html">Log in here</a></div>';
     return;
   }
+
+  const displayName = user.full_name || user.name || 'Customer';
+  const initials = displayName.split(/\s+/).map((part) => part[0]).filter(Boolean).join('').slice(0, 2).toUpperCase();
+  const joinedAt = user.created_at ? new Date(user.created_at).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' }) : null;
+
+  let orders = [];
   try {
     const response = await fetch(`${API_BASE}/orders/user/${user.id}`, { headers: { Authorization: `Bearer ${token}` } });
-    const orders = await response.json();
-    container.innerHTML = `
-      <div class="card">
-        <h2>Welcome, ${escapeHtml(user.full_name || user.name || 'Customer')}</h2>
-        <p>You can review your recent orders and account details here.</p>
-      </div>
-      <div class="card" style="margin-top: 1rem;">
-        <h3>Your Orders</h3>
-        ${orders.length ? orders.map((order) => `
-          <div class="admin-item">
-            <div>
-              <strong>Order #${order.id}</strong>
-              <p>Status: ${escapeHtml(order.order_status || 'pending')}</p>
-              <p>Total: ${formatPrice(order.total_price || 0)} RWF</p>
-            </div>
-          </div>
-        `).join('') : '<p>No orders yet.</p>'}
-      </div>
-    `;
+    if (response.ok) orders = await response.json();
   } catch (error) {
-    container.innerHTML = '<div class="error-message">Unable to load dashboard details.</div>';
+    orders = [];
   }
+
+  const totalSpent = orders.reduce((sum, order) => sum + Number(order.total_price || 0), 0);
+  const pendingCount = orders.filter((order) => (order.order_status || 'pending') === 'pending').length;
+
+  const statusLabel = (status) => {
+    const value = String(status || 'pending').toLowerCase();
+    if (value === 'shipped') return 'Shipped';
+    if (value === 'delivered' || value === 'completed') return 'Delivered';
+    if (value === 'cancelled' || value === 'canceled') return 'Cancelled';
+    return 'Pending';
+  };
+
+  const ordersMarkup = orders.length
+    ? orders.map((order) => {
+        const items = Array.isArray(order.items)
+          ? order.items.map((item) => `${escapeHtml(item.product_name || 'Product')} &times; ${item.quantity}`).join(', ')
+          : 'Order items';
+        const date = order.created_at ? new Date(order.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Recently';
+        const payment = order.payment_method ? `Paid via ${escapeHtml(order.payment_method)}` : 'Payment pending';
+        return `
+          <div class="order-item">
+            <div class="order-item-head">
+              <span class="order-id">Order #${order.id}</span>
+              <span class="order-status status-${String(order.order_status || 'pending').toLowerCase()}">${statusLabel(order.order_status)}</span>
+            </div>
+            <p class="order-date">${date}</p>
+            <p class="order-lines">${items}</p>
+            <p class="order-total">Total: <strong>${formatPrice(order.total_price || 0)} RWF</strong> &middot; ${payment}</p>
+          </div>`;
+      }).join('')
+    : '<p class="empty-note">No orders yet. <a href="products.html">Browse our products</a> and place your first order.</p>';
+
+  container.innerHTML = `
+    <div class="dashboard-grid">
+      <div class="dashboard-profile-col">
+        <div class="profile-card">
+          <div class="profile-avatar">${escapeHtml(initials)}</div>
+          <h2>${escapeHtml(displayName)}</h2>
+          <p class="profile-meta"><i class="fas fa-check-circle"></i> ${escapeHtml(user.role || 'Customer')} account</p>
+          <ul class="profile-list">
+            <li><i class="fas fa-envelope"></i> ${escapeHtml(user.email || '—')}</li>
+            <li><i class="fas fa-phone-alt"></i> ${escapeHtml(user.phone || '+250 788 991 551')}</li>
+            ${joinedAt ? `<li><i class="fas fa-calendar-check"></i> Member since ${joinedAt}</li>` : ''}
+          </ul>
+          <button type="button" class="btn btn-secondary" id="logoutUserBtn"><i class="fas fa-sign-out-alt"></i> Log out</button>
+        </div>
+
+        <div class="support-card">
+          <h3>Need help?</h3>
+          <p>Our Kigali team is happy to assist with orders, delivery, and product advice.</p>
+          <a class="contact-line" href="tel:+250788991551"><i class="fas fa-phone-alt"></i> +250 788 991 551</a>
+          <a class="contact-line" href="mailto:info@edmarkrwanda.com"><i class="fas fa-envelope"></i> info@edmarkrwanda.com</a>
+          <a class="contact-line" href="https://wa.me/250788991551"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+          <a class="contact-line" href="contact.html"><i class="fas fa-paper-plane"></i> Send us a message</a>
+        </div>
+      </div>
+
+      <div class="dashboard-main-col">
+        <div class="stats-grid dashboard-stats">
+          <div class="stat-card">
+            <span class="stat-value">${orders.length}</span>
+            <span class="stat-label">Total orders</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">${pendingCount}</span>
+            <span class="stat-label">Pending</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">${formatPrice(totalSpent)} RWF</span>
+            <span class="stat-label">Total spent</span>
+          </div>
+        </div>
+
+        <div class="orders-card">
+          <div class="section-heading">
+            <p class="eyebrow">Order History</p>
+            <h2>Your Orders</h2>
+          </div>
+          ${ordersMarkup}
+        </div>
+      </div>
+    </div>
+  `;
+
+  const logoutBtn = document.getElementById('logoutUserBtn');
+  if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
 }
 
 function logoutUser() {
@@ -527,7 +601,7 @@ function renderCart() {
   if (cart.length === 0) {
     cartItems.innerHTML = '';
     cartEmpty.style.display = 'block';
-    cartTotal.textContent = '0';
+    cartTotal.textContent = '0 RWF';
     return;
   }
 
@@ -537,7 +611,7 @@ function renderCart() {
   `).join('');
 
   const total = cart.reduce((sum, item) => sum + item.unit_price * item.quantity, 0);
-  cartTotal.textContent = formatPrice(total);
+  cartTotal.textContent = `${formatPrice(total)} RWF`;
 }
 
 async function placeOrder() {
@@ -754,10 +828,5 @@ window.addEventListener('DOMContentLoaded', () => {
         mtnSection.style.display = paymentMethod.value === 'mtn' ? 'block' : 'none';
       }
     });
-  }
-
-  const logoutButton = document.getElementById('logoutButton');
-  if (logoutButton) {
-    logoutButton.addEventListener('click', logoutUser);
   }
 });

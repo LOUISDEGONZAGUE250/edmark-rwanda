@@ -94,9 +94,9 @@ async function registerUser(form) {
     });
     const body = await res.json();
     if (!res.ok) throw new Error(body.error || 'Registration failed');
-    msg.textContent = 'Registration successful. Redirecting to site...';
+    msg.textContent = 'Registration successful. Redirecting to your account...';
     msg.style.color = '#2d8a2d';
-    setTimeout(()=> location.href = 'index.html', 1200);
+    setTimeout(()=> location.href = 'customer-dashboard.html', 1200);
   } catch (err) {
     try {
       const fallbackUser = createFallbackUser({ full_name: data.full_name, phone: data.phone, email: data.email, password: data.password });
@@ -109,9 +109,9 @@ async function registerUser(form) {
         phone: fallbackUser.phone,
         role: fallbackUser.role
       }));
-      msg.textContent = 'Registration successful. Redirecting to site...';
+      msg.textContent = 'Registration successful. Redirecting to your account...';
       msg.style.color = '#2d8a2d';
-      setTimeout(()=> location.href = 'index.html', 1200);
+      setTimeout(()=> location.href = 'customer-dashboard.html', 1200);
     } catch (fallbackError) {
       msg.textContent = fallbackError.message || 'Registration error';
       msg.style.color = '#c0392b';
@@ -142,7 +142,7 @@ async function loginUser(form) {
     localStorage.setItem('user', JSON.stringify(body.user));
     msg.textContent = 'Login successful. Redirecting...';
     msg.style.color = '#2d8a2d';
-    const targetPage = body.user.role === 'admin' ? 'admin.html' : 'index.html';
+    const targetPage = body.user.role === 'admin' ? 'admin.html' : 'customer-dashboard.html';
     setTimeout(()=> location.href = targetPage, 800);
   } catch (err) {
     try {
@@ -162,7 +162,7 @@ async function loginUser(form) {
       }));
       msg.textContent = 'Login successful. Redirecting...';
       msg.style.color = '#2d8a2d';
-      const targetPage = fallbackUser.role === 'admin' ? 'admin.html' : 'index.html';
+      const targetPage = fallbackUser.role === 'admin' ? 'admin.html' : 'customer-dashboard.html';
       setTimeout(()=> location.href = targetPage, 800);
     } catch (fallbackError) {
       msg.textContent = fallbackError.message || 'Login error';
